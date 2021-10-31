@@ -11,7 +11,7 @@
 %token <int> LITERAL
 %token <string> ID FLIT
 %token <bool> BLIT
-%token <array> MX /* Ask TA */
+%token <array> MX /* ASK TA */
 %token <string> STRINGLIT
 %token EOF 
 
