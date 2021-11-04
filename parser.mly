@@ -31,7 +31,6 @@ program: decls EOF { $1 }
 decls: /* nothing */ { ([], []) }
 | decls vdecl { (($2 :: fst $1), snd $1) }
 | decls fdecl { (fst $1, ($2 :: snd $1)) }
-| decls mdecl {}
 
 fdecl:  typ ID LPAREN formals_opt RPAREN
         LBRACE vdecl_list stmt_list RBRACE {
@@ -54,11 +53,20 @@ typ:
     
 vdecl_list: /* nothing */ { [] }
            | vdecl_list vdecl { $2 :: $1 }
+
 vdecl:
          typ ID ASSIGN expr SEMI                                        { ($1, $2, $4) } /* Ask TA About This */
-        |MATRIX ID ASSIGN INT LBRACKET row_list RBRACKET SEMI           { ($1, $2, $4, $6) }
-        |MATRIX ID ASSIGN FLOAT LBRACKET row_list RBRACKET SEMI         { ($1, $2, $4, $6) }
+        |MATRIX ID ASSIGN INT LBRACKET row_list RBRACKET SEMI           { ($2, $6) }
+        |MATRIX ID ASSIGN FLOAT LBRACKET row_list RBRACKET SEMI         { ($2, $6) }
 
+row_list:
+          /* nothing */                                                 { [] }
+          | LBRACKET elems_list RBRACKET                                { [[$2]] }      /* Matrix m = [[1,2,3]] */
+          | row_list COMMA LBRACKET elems_list RBRACKET                 { [$4]::$1 }    /* Matrix m = [[1,2,3],[4,5,6],[7,8,9]] */
+
+elems_list:
+            LITERAL                                 { [$1] }
+          | elems_list COMMA LITERAL                { $3::$1 }
 
 expr:
     LITERAL                      { Literal($1) }
@@ -89,3 +97,16 @@ expr:
     | ID LPAREN args_opt RPAREN
                                  { Call($1, $3) }
     | LPAREN expr RPAREN         { $2 }
+
+/* Matrix m = [[1,2,3],[4,5,6]] */
+
+stmt:
+    expr SEMI                               { Expr $1               }
+  | RETURN expr_opt SEMI                    { Return $2             }
+  | LBRACE stmt_list RBRACE                 { Block(List.rev $2)    }
+  | IF LPAREN expr RPAREN stmt %prec NOELSE { If($3, $5, Block([])) }
+  | IF LPAREN expr RPAREN stmt ELSE stmt    { If($3, $5, $7)        }
+  | FOR LPAREN expr_opt SEMI expr SEMI expr_opt RPAREN stmt
+                                            { For($3, $5, $7, $9)   }
+  | WHILE LPAREN expr RPAREN stmt           { While($3, $5)         }
+
