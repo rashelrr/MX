@@ -1,10 +1,10 @@
 %{ open Ast %}
 
-%token LPAREN RPAREN LBRACE RBRACE LBRACKET RBRACKET SEMI COMMA APOS
-%token NUMROWS NUMCOLS ZEROS ONE PRINT ADDROW ADDCOL RANK IDENTITY 
+%token LPAREN RPAREN LBRACE RBRACE LBRACKET RBRACKET SEMI COMMA TRANSPOSE
+%token NUMROWS NUMCOLS ZEROS ONE PRINT ADDROW ADDCOL RANK IDENTITY   /* ASK TA : Do built in functions go in expressions? */
 %token DOT ROTATE REFLX REFLY REFLYX REFLO REFLNEGX SHEARH SHEARV
 %token PLUS MINUS TIMES DIVIDE ASSIGN EQ
-%token IF ELIF ELSE WHILE FOR NOT
+%token IF ELIF ELSE WHILE FOR NOT NOELSE
 %token INT BOOL FLOAT STRING CONTINUE BREAK RETURN MATRIX VOID NULL
 %token NEQ LT GT LEQ GEQ AND OR
 %token MXPLUS MXMINUS MXMX MXSCALE 
@@ -15,11 +15,16 @@
 %token <string> STRINGLIT
 %token EOF 
 
-%left SEMI
-%left IF ELSE ELIF
+%nonassoc NOELSE
+%nonassoc ELSE
 %right ASSIGN 
+%left OR
+%left AND
+%left EQ NEQ
+%left LT GT LEQ GEQ
 %left PLUS MINUS
 %left TIMES DIVIDE
+%right NOT
 
 %start program
 %type <Ast.program> program
@@ -55,18 +60,20 @@ vdecl_list: /* nothing */ { [] }
            | vdecl_list vdecl { $2 :: $1 }
 
 vdecl:
-         typ ID ASSIGN expr SEMI                                        { ($1, $2, $4) } /* Ask TA About This */
-        |MATRIX ID ASSIGN INT LBRACKET row_list RBRACKET SEMI           { ($2, $6) }
-        |MATRIX ID ASSIGN FLOAT LBRACKET row_list RBRACKET SEMI         { ($2, $6) }
+          typ ID SEMI                                                    {($1, $2, Noexpr)}
+        | typ ID ASSIGN expr SEMI                                        {($1,$2, Assign($2,$4))}
+        | MATRIX ID ASSIGN INT LBRACKET row_list RBRACKET SEMI           { ($2, $6) }
+        | MATRIX ID ASSIGN FLOAT LBRACKET row_list RBRACKET SEMI         { ($2, $6) }
 
 row_list:
           /* nothing */                                                 { [] }
           | LBRACKET elems_list RBRACKET                                { [[$2]] }      /* Matrix m = [[1,2,3]] */
           | row_list COMMA LBRACKET elems_list RBRACKET                 { [$4]::$1 }    /* Matrix m = [[1,2,3],[4,5,6],[7,8,9]] */
+                                                                                        /* Matrix m = [,[1,2,3]] */     
 
 elems_list:
             LITERAL                                 { [$1] }
-          | elems_list COMMA LITERAL                { $3::$1 }
+          | elems_list COMMA LITERAL                { $3::$1 }  /* ASK TA */
 
 expr:
     LITERAL                      { Literal($1) }
@@ -82,7 +89,7 @@ expr:
     | expr MXMINUS expr          { Binop( $1, Mxsub, $3) }
     | expr MXMX expr             { Binop( $1, Mxtimes, $3) }
     | expr MXSCALE expr          { Binop( $1, Mxscale, $3) }
-    | expr APOS                  { Unop( $1, Apostrophe) } /* our transpose operation */
+    | expr TRANSPOSE             { Unop( $1, Transpose) } /* our transpose operation */
     | expr EQ expr               { Binop($1, Equal, $3) }
     | expr NEQ expr              { Binop($1, Neq, $3) }
     | expr LT expr               { Binop($1, Less, $3) }
@@ -91,22 +98,38 @@ expr:
     | expr GEQ expr              { Binop($1, Geq, $3) }
     | expr AND expr              { Binop($1, And, $3) }
     | expr OR expr               { Binop($1, Or, $3) }
-    | MINUS expr %prec NOT       { Unop(Neg, $2) }
-    | NOT expr                   { Unop(Not, $2) }
+    | MINUS expr %prec NOT       { Unop(Neg, $2) }        /* Ask TA about this */
+    | NOT expr                   { Unop(Not, $2) }        
     | ID ASSIGN expr             { Assign($1, $3) }
-    | ID LPAREN args_opt RPAREN
-                                 { Call($1, $3) }
+    | ID LPAREN args_opt RPAREN  { Call($1, $3) }
     | LPAREN expr RPAREN         { $2 }
 
 /* Matrix m = [[1,2,3],[4,5,6]] */
 
 stmt:
-    expr SEMI                               { Expr $1               }
-  | RETURN expr_opt SEMI                    { Return $2             }
-  | LBRACE stmt_list RBRACE                 { Block(List.rev $2)    }
-  | IF LPAREN expr RPAREN stmt %prec NOELSE { If($3, $5, Block([])) }
-  | IF LPAREN expr RPAREN stmt ELSE stmt    { If($3, $5, $7)        }
-  | FOR LPAREN expr_opt SEMI expr SEMI expr_opt RPAREN stmt
-                                            { For($3, $5, $7, $9)   }
-  | WHILE LPAREN expr RPAREN stmt           { While($3, $5)         }
+    expr SEMI                                                 { Expr $1               }
+  | RETURN expr_opt SEMI                                      { Return $2             }
+  | LBRACE stmt_list RBRACE                                   { Block(List.rev $2)    }
+  | IF LPAREN expr RPAREN stmt %prec NOELSE                   { If($3, $5, Block([])) } 
+  | IF LPAREN expr RPAREN stmt ELSE stmt                      { If($3, $5, $7)        }
+  | FOR LPAREN expr_opt SEMI expr SEMI expr_opt RPAREN stmt   { For($3, $5, $7, $9)   }
+  | WHILE LPAREN expr RPAREN stmt                             { While($3, $5)         }
+
+stmt_list:
+    /* nothing */  { [] }
+  | stmt_list stmt { $2 :: $1 }
+
+expr_opt:
+/* nothing */ { Noexpr }
+| expr { $1 }
+
+args_opt:
+/* nothing */ { [] }
+| args_list { List.rev $1 }
+
+args_list:
+expr { [$1] }
+| args_list COMMA expr { $3 :: $1 }
+
+
 
