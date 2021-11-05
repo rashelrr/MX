@@ -8,24 +8,6 @@ type token =
   | SEMI
   | COMMA
   | TRANSPOSE
-  | NUMROWS
-  | NUMCOLS
-  | ZEROS
-  | ONE
-  | PRINT
-  | ADDROW
-  | ADDCOL
-  | RANK
-  | IDENTITY
-  | DOT
-  | ROTATE
-  | REFLX
-  | REFLY
-  | REFLYX
-  | REFLO
-  | REFLNEGX
-  | SHEARH
-  | SHEARV
   | PLUS
   | MINUS
   | TIMES

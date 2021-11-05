@@ -1,8 +1,6 @@
 %{ open Ast %}
 
-%token LPAREN RPAREN LBRACE RBRACE LBRACKET RBRACKET SEMI COMMA TRANSPOSE
-%token NUMROWS NUMCOLS ZEROS ONE PRINT ADDROW ADDCOL RANK IDENTITY   /* ASK TA : Do built in functions go in expressions? */
-%token DOT ROTATE REFLX REFLY REFLYX REFLO REFLNEGX SHEARH SHEARV
+%token LPAREN RPAREN LBRACE RBRACE LBRACKET RBRACKET SEMI COMMA TRANSPOSE  /* ASK TA : Do built in functions go in expressions? Implement in AST; Should not be tokens; Seed hash table with predefined functions */
 %token PLUS MINUS TIMES DIVIDE ASSIGN EQ
 %token IF ELIF ELSE WHILE FOR NOT NOELSE
 %token INT BOOL FLOAT STRING CONTINUE BREAK RETURN MATRIX VOID NULL
@@ -13,7 +11,7 @@
 %token <bool> BLIT
 %token <array> MX /* ASK TA */
 %token <string> STRINGLIT
-%token EOF 
+%token EOF
 
 %nonassoc NOELSE
 %nonassoc ELSE
@@ -22,9 +20,10 @@
 %left AND
 %left EQ NEQ
 %left LT GT LEQ GEQ
-%left PLUS MINUS
-%left TIMES DIVIDE
+%left PLUS MINUS MXPLUS MXMINUS
+%left TIMES DIVIDE MXMX MXSCALE
 %right NOT
+%left TRANSPOSE
 
 %start program
 %type <Ast.program> program
@@ -62,8 +61,8 @@ vdecl_list: /* nothing */ { [] }
 vdecl:
           typ ID SEMI                                                    {($1, $2, Noexpr)}
         | typ ID ASSIGN expr SEMI                                        {($1,$2, Assign($2,$4))}
-        | MATRIX ID ASSIGN INT LBRACKET row_list RBRACKET SEMI           { ($2, $6) }
-        | MATRIX ID ASSIGN FLOAT LBRACKET row_list RBRACKET SEMI         { ($2, $6) }
+        | typ ID ASSIGN INT LBRACKET row_list RBRACKET SEMI             { ($2, $6) }          /* Do not have to worry about type correctness rn */
+        | typ ID ASSIGN FLOAT LBRACKET row_list RBRACKET SEMI         { ($2, $6) }
 
 row_list:
           /* nothing */                                                 { [] }
@@ -98,7 +97,7 @@ expr:
     | expr GEQ expr              { Binop($1, Geq, $3) }
     | expr AND expr              { Binop($1, And, $3) }
     | expr OR expr               { Binop($1, Or, $3) }
-    | MINUS expr %prec NOT       { Unop(Neg, $2) }        /* Ask TA about this */
+    | MINUS expr %prec NOT       { Unop(Neg, $2) }      /*   Ask TA about this */
     | NOT expr                   { Unop(Not, $2) }        
     | ID ASSIGN expr             { Assign($1, $3) }
     | ID LPAREN args_opt RPAREN  { Call($1, $3) }
