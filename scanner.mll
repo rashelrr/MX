@@ -1,6 +1,4 @@
-{ open Microcparse }
-
-(* Taken from the MicroC slides, needs to be changed *)
+{ open parser }
 
 let digit = [’0’ - ’9’]
 
