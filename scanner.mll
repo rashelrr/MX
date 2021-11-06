@@ -33,7 +33,7 @@ rule token = parse
     | '-.'                  { MXMINUS }
     | '*.'                  { MXMX }
     | '**.'                 { MXSCALE }
-    | "'"                   { TRANSPOSE } (* ASK TA - CHANGE TO ^ *)
+    | '''                   { TRANSPOSE } (* ASK TA - CHANGE TO ^ *)
 
     | "=="                  { EQ } 
     | ">"                   { GT }
