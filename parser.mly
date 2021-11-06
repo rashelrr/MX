@@ -9,7 +9,6 @@
 %token <int> LITERAL
 %token <string> ID FLIT
 %token <bool> BLIT
-%token <array> MX /* ASK TA */
 %token <string> STRINGLIT
 %token EOF
 
@@ -61,8 +60,11 @@ vdecl_list: /* nothing */ { [] }
 vdecl:
           typ ID SEMI                                                    {($1, $2, Noexpr)}
         | typ ID ASSIGN expr SEMI                                        {($1,$2, Assign($2,$4))}
-        | typ ID ASSIGN INT LBRACKET row_list RBRACKET SEMI             { ($2, $6) }          /* Do not have to worry about type correctness rn */
-        | typ ID ASSIGN FLOAT LBRACKET row_list RBRACKET SEMI         { ($2, $6) }
+        | typ ID ASSIGN INT matrix_literal SEMI                          { ($2, $5) }              /* Do not have to worry about type correctness rn */
+        | typ ID ASSIGN FLOAT matrix_literal SEMI                        { ($2, $5) }
+
+matrix_literal:
+          LBRACKET row_list RBRACKET                                    { $2 }            /* ASK TA */
 
 row_list:
           /* nothing */                                                 { [] }
@@ -79,7 +81,7 @@ expr:
     | FLIT                       { Fliteral($1) }
     | BLIT                       { BoolLit($1) }
     | ID                         { Id($1) }
-    | MX                         { Mx($1) }
+    | matrix_literal             { Mx($1) }        
     | expr PLUS expr             { Binop($1, Add, $3) }
     | expr MINUS expr            { Binop($1, Sub, $3) }
     | expr TIMES expr            { Binop($1, Mult, $3) }
