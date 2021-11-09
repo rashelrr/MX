@@ -46,7 +46,6 @@ type token =
   | ID of (string)
   | FLIT of (string)
   | BLIT of (bool)
-  | MX of (array)
   | STRINGLIT of (string)
   | EOF
 

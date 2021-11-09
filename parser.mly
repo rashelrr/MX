@@ -81,6 +81,7 @@ expr:
     | FLIT                       { Fliteral($1) }
     | BLIT                       { BoolLit($1) }
     | ID                         { Id($1) }
+    | STRINGLIT                  { Stringlit($1) }
     | matrix_literal             { Mx($1) }        
     | expr PLUS expr             { Binop($1, Add, $3) }
     | expr MINUS expr            { Binop($1, Sub, $3) }
