@@ -1,8 +1,8 @@
 ### Starting build.
 # Target: mx.ml.depends, tags: { package(llvm), package(llvm.analysis), warn(+a-4), extension:ml, file:mx.ml, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package llvm -package llvm.analysis -modules mx.ml > mx.ml.depends
+ocamlfind ocamldep -package llvm -package llvm.analysis -modules mx.ml > mx.ml.depends # cached
 # Target: ast.ml.depends, tags: { package(llvm), package(llvm.analysis), warn(+a-4), extension:ml, file:ast.ml, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package llvm -package llvm.analysis -modules ast.ml > ast.ml.depends
+ocamlfind ocamldep -package llvm -package llvm.analysis -modules ast.ml > ast.ml.depends # cached
 # Target: codegen.ml.depends, tags: { package(llvm), package(llvm.analysis), warn(+a-4), extension:ml, file:codegen.ml, ocaml, ocamldep, quiet, traverse }
 ocamlfind ocamldep -package llvm -package llvm.analysis -modules codegen.ml > codegen.ml.depends
 # Target: ast.cmo, tags: { package(llvm), package(llvm.analysis), warn(+a-4), byte, compile, extension:cmo, extension:ml, file:ast.cmo, file:ast.ml, implem, ocaml, quiet, traverse }
@@ -47,24 +47,28 @@ File "codegen.ml", line 38, characters 21-149:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 Matrix
-File "codegen.ml", line 125, characters 3-506:
+File "codegen.ml", line 126, characters 3-506:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 (Mxadd|Mxsub|Mxtimes|Mxscale)
-File "codegen.ml", line 142, characters 3-459:
+File "codegen.ml", line 143, characters 3-459:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 (Mxadd|Mxsub|Mxtimes|Mxscale)
-File "codegen.ml", line 158, characters 3-156:
+File "codegen.ml", line 159, characters 3-156:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 Transpose
+File "codegen.ml", line 82, characters 8-22:
+Warning 26: unused variable str_format_str.
+File "codegen.ml", line 171, characters 8-29:
+Warning 11: this match case is unused.
 # Target: scanner.cmo, tags: { package(llvm), package(llvm.analysis), warn(+a-4), byte, compile, extension:cmo, extension:ml, file:scanner.cmo, file:scanner.ml, implem, ocaml, quiet, traverse }
 ocamlfind ocamlc -c -w +a-4 -package llvm -package llvm.analysis -o scanner.cmo scanner.ml
 # Target: semant.cmo, tags: { package(llvm), package(llvm.analysis), warn(+a-4), byte, compile, extension:cmo, extension:ml, file:semant.cmo, file:semant.ml, implem, ocaml, quiet, traverse }
 ocamlfind ocamlc -c -w +a-4 -package llvm -package llvm.analysis -o semant.cmo semant.ml
 + ocamlfind ocamlc -c -w +a-4 -package llvm -package llvm.analysis -o semant.cmo semant.ml
-File "semant.ml", line 94, characters 19-2654:
+File "semant.ml", line 95, characters 19-2654:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 Mx _
@@ -102,24 +106,28 @@ File "codegen.ml", line 38, characters 21-149:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 Matrix
-File "codegen.ml", line 125, characters 3-506:
+File "codegen.ml", line 126, characters 3-506:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 (Mxadd|Mxsub|Mxtimes|Mxscale)
-File "codegen.ml", line 142, characters 3-459:
+File "codegen.ml", line 143, characters 3-459:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 (Mxadd|Mxsub|Mxtimes|Mxscale)
-File "codegen.ml", line 158, characters 3-156:
+File "codegen.ml", line 159, characters 3-156:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 Transpose
+File "codegen.ml", line 82, characters 8-22:
+Warning 26: unused variable str_format_str.
+File "codegen.ml", line 171, characters 8-29:
+Warning 11: this match case is unused.
 # Target: scanner.cmx, tags: { package(llvm), package(llvm.analysis), warn(+a-4), compile, extension:cmx, extension:ml, file:scanner.cmx, file:scanner.ml, implem, native, ocaml, quiet, traverse }
 ocamlfind ocamlopt -c -w +a-4 -package llvm -package llvm.analysis -o scanner.cmx scanner.ml
 # Target: semant.cmx, tags: { package(llvm), package(llvm.analysis), warn(+a-4), compile, extension:cmx, extension:ml, file:semant.cmx, file:semant.ml, implem, native, ocaml, quiet, traverse }
 ocamlfind ocamlopt -c -w +a-4 -package llvm -package llvm.analysis -o semant.cmx semant.ml
 + ocamlfind ocamlopt -c -w +a-4 -package llvm -package llvm.analysis -o semant.cmx semant.ml
-File "semant.ml", line 94, characters 19-2654:
+File "semant.ml", line 95, characters 19-2654:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 Mx _

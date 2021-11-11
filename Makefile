@@ -1,26 +1,23 @@
-mx : parser.cmo scanner.cmo mx.cmo
-	ocamlc -w A -o mx $^
+# "make all" builds the executable as well as the "printbig" library designed
+# to test linking external code
 
-%.cmo : %.ml
-	ocamlc -w A -c $<
+.PHONY : all
+all : mx.native printbig.o
 
-%.cmi : %.mli
-	ocamlc -w A -c $<
+# "make microc.native" compiles the compiler
+#
+# The _tags file controls the operation of ocamlbuild, e.g., by including
+# packages, enabling warnings
+#
+# See https://github.com/ocaml/ocamlbuild/blob/master/manual/manual.adoc
 
-scanner.ml : scanner.mll
-	ocamllex $^
+mx.native :
+	opam config exec -- \
+	ocamlbuild -use-ocamlfind mx.native
 
-parser.ml parser.mli : parser.mly
-	ocamlyacc $^
-
-# Depedencies from ocamldep
-mx.cmo : scanner.cmo parser.cmi ast.cmi
-mx.cmx : scanner.cmx parser.cmx ast.cmi
-parser.cmo : ast.cmi parser.cmi
-parser.cmx : ast.cmi parser.cmi
-scanner.cmo : parser.cmi
-scanner.cmx : parser.cmx
+# "make clean" removes all generated files
 
 .PHONY : clean
 clean :
-	rm -rf *.cmi *.cmo parser.ml parser.mli scanner.ml  mx
+	ocamlbuild -clean
+	rm -rf testall.log ocamlllvm *.diff
