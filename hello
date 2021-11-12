@@ -1,6 +1,0 @@
-int main(){
-
-    print( "Hey" );
-
-    return 0;
-}
