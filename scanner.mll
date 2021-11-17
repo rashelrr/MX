@@ -1,18 +1,21 @@
-{ open parser }
+{ open Parser }
 
-let digit = [’0’ - ’9’]
+
+
+let digit = ['0' - '9']
+let digits = digit+
 
 rule token = parse
-    [’ ’ ’\t’ ’\r’ ’\n’]    { token lexbuf }
+        [' ' '\t' '\r' '\n']    { token lexbuf }
     | "/*"                  { comment lexbuf }
     | "#"                   { singlecomment lexbuf }
 
-    | ’{’                   { LBRACE } 
-    | ’}’                   { RBRACE } 
-    | ’[’                   { LBRACKET } 
+    | '{'                   { LBRACE } 
+    | '}'                   { RBRACE } 
+    | '['                   { LBRACKET } 
     | ']'                   { RBRACKET }
-    | ’(’                   { LPAREN } 
-    | ’)’                   { RPAREN } 
+    | '('                   { LPAREN } 
+    | ')'                   { RPAREN } 
 
     | "if"                  { IF } 
     | "elif"                { ELIF }
@@ -23,21 +26,21 @@ rule token = parse
     | "continue"            { CONTINUE }
     | "break"               { BREAK }
 
-    | ’=’                   { ASSIGN }     
-    | ’+’                   { PLUS } 
-    | ’-’                   { MINUS } 
-    | ’*’                   { TIMES }
-    | ’/’                   { DIVIDE }
+    | '='                   { ASSIGN }     
+    | '+'                   { PLUS } 
+    | '-'                   { MINUS } 
+    | '*'                   { TIMES }
+    | '/'                   { DIVIDE }
 
-    | '+.'                  { MXPLUS }
-    | '-.'                  { MXMINUS }
-    | '*.'                  { MXMX }
-    | '**.'                 { MXSCALE }
+    | "+."                  { MXPLUS }
+    | "-."                  { MXMINUS }
+    | "*."                  { MXMX }
+    | "**."                 { MXSCALE }
     | '''                   { TRANSPOSE } (* ASK TA - CHANGE TO ^ *)
 
     | "=="                  { EQ } 
     | ">"                   { GT }
-    | ’<’                   { LT } 
+    | '<'                   { LT } 
     | "<="                  { LEQ }     
     | "!="                  { NEQ } 
     | ">="                  { GEQ }
@@ -46,8 +49,8 @@ rule token = parse
     | "||"                  { OR }
     | "&&"                  { AND }
 
-    | ’;’                   { SEMI } 
-    | ’,’                   { COMMA } 
+    | ';'                   { SEMI } 
+    | ','                   { COMMA } 
 
     | "int"                 { INT } 
     | "Matrix"              { MATRIX }
@@ -60,11 +63,11 @@ rule token = parse
     | "return"              { RETURN }
     | "null"                { NULL }
 
-    | ’" ’                  { STRINGLIT ( string ( Buf . create 100) lexbuf ) }        
+    | '"' ([^ '"']* as lit) '"' { STRINGLIT(lit) }        
 
     | digit+ as lxm                                                 { LITERAL(int_of_string lxm) }
-    | digit+ ’.’ digit* ([’e’ ’E’] [’+’ ’-’]? digits)? as lxm       { FLIT(lxm) }
-    | [’a’-’z’ ’A’-’Z’][’a’-’z’ ’A’-’Z’ ’0’-’9’ ’_’]* as lxm        { ID(lxm) }                   
+    | digit+ '.' digit* (['e' 'E'] ['+' '-']? digits)? as lxm       { FLIT(lxm) }
+    | ['a'-'z' 'A'-'Z']['a'-'z' 'A'-'Z' '0'-'9' '_']* as lxm        { ID(lxm) }                   
     | eof                                                           { EOF }
     | _ as ch                                                       { raise (Failure("illegal character " ^ Char.escaped ch)) }
 
@@ -75,11 +78,3 @@ and comment = parse
 and singlecomment = parse
     "\n" { token lexbuf }
     | _ { singlecomment lexbuf }
-    
-and string buf = parse
-    | [^ ’ " ’ ’\n ’ ’\\ ’]+ as content         { Buf . add_string buf content; string buf lexbuf }
-    | ’\n ’                                     { Buf . add_string buf " \ n " ; Lex . new_line lexbuf ; string buf lexbuf }
-    | ’\\ ’ ’" ’                                { Buf . add_char buf ’" ’; string buf lexbuf }
-    | ’\\ ’                                     { Buf . add_char buf ’\\ ’; string buf lexbuf }
-    | ’" ’                                      { Buf . contents buf } 
-

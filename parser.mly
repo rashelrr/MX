@@ -58,10 +58,10 @@ vdecl_list: /* nothing */ { [] }
            | vdecl_list vdecl { $2 :: $1 }
 
 vdecl:
-          typ ID SEMI                                                    {($1, $2, Noexpr)}
-        | typ ID ASSIGN expr SEMI                                        {($1,$2, Assign($2,$4))}
-        | typ ID ASSIGN INT matrix_literal SEMI                          { ($2, $5) }              /* Do not have to worry about type correctness rn */
-        | typ ID ASSIGN FLOAT matrix_literal SEMI                        { ($2, $5) }
+          typ ID SEMI                                                    {($1, $2)}
+  /*      | typ ID ASSIGN expr SEMI                                        {($1,$2, Assign($2,$4))}
+        | typ ID ASSIGN INT matrix_literal SEMI                          { ($2, $5) }               Do not have to worry about type correctness rn 
+        | typ ID ASSIGN FLOAT matrix_literal SEMI                        { ($2, $5) } */
 
 matrix_literal:
           LBRACKET row_list RBRACKET                                    { $2 }            /* ASK TA */
@@ -91,7 +91,7 @@ expr:
     | expr MXMINUS expr          { Binop( $1, Mxsub, $3) }
     | expr MXMX expr             { Binop( $1, Mxtimes, $3) }
     | expr MXSCALE expr          { Binop( $1, Mxscale, $3) }
-    | expr TRANSPOSE             { Unop( $1, Transpose) } /* our transpose operation */
+    | expr TRANSPOSE             { Unop( Transpose, $1) } /* our transpose operation */
     | expr EQ expr               { Binop($1, Equal, $3) }
     | expr NEQ expr              { Binop($1, Neq, $3) }
     | expr LT expr               { Binop($1, Less, $3) }
