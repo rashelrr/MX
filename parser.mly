@@ -1,6 +1,6 @@
 %{ open Ast %}
 
-%token LPAREN RPAREN LBRACE RBRACE LBRACKET RBRACKET SEMI COMMA TRANSPOSE  /* ASK TA : Do built in functions go in expressions? Implement in AST; Should not be tokens; Seed hash table with predefined functions */
+%token LPAREN RPAREN LBRACE RBRACE LBRACKET RBRACKET SEMI COMMA TRANSPOSE
 %token PLUS MINUS TIMES DIVIDE ASSIGN EQ
 %token IF ELIF ELSE WHILE FOR NOT NOELSE
 %token INT BOOL FLOAT STRING CONTINUE BREAK RETURN MATRIX VOID NULL
@@ -47,21 +47,22 @@ formal_list: typ ID { [($1,$2)] }
              | formal_list COMMA typ ID { ($3,$4) :: $1 }
              
 typ: 
-      INT     { Int }
-    | BOOL    { Bool }
-    | STRING  { String }
-    | FLOAT   { Float  }
-    | MATRIX  { Matrix }
-    | VOID    { Void }  
+      INT           { Int }
+    | BOOL          { Bool }
+    | STRING        { String }
+    | FLOAT         { Float  }
+    | INT MATRIX    { Matrix(Int) }
+    | FLOAT MATRIX  { Matrix(Float) }
+    | VOID          { Void }  
     
 vdecl_list: /* nothing */ { [] }
            | vdecl_list vdecl { $2 :: $1 }
 
 vdecl:
-          typ ID SEMI                                                    {($1, $2)}
-  /*      | typ ID ASSIGN expr SEMI                                        {($1,$2, Assign($2,$4))}
-        | typ ID ASSIGN INT matrix_literal SEMI                          { ($2, $5) }               Do not have to worry about type correctness rn 
-        | typ ID ASSIGN FLOAT matrix_literal SEMI                        { ($2, $5) } */
+          typ ID SEMI                              { ($1, $2) }
+     /*   | typ ID ASSIGN expr SEMI                  { ($1,$2, Assign($2,$4))} 
+        | INT   typ ID SEMI                        { ($2, $3) }   int matrix m;
+        | FLOAT typ ID SEMI                        { ($2, $3) }  */
 
 matrix_literal:
           LBRACKET row_list RBRACKET                                    { $2 }            /* ASK TA */

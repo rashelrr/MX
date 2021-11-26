@@ -1,5 +1,5 @@
 	.text
-	.file	"MicroC"
+	.file	"MX"
 	.globl	main                    # -- Begin function main
 	.p2align	4, 0x90
 	.type	main,@function
@@ -8,8 +8,9 @@ main:                                   # @main
 # %bb.0:                                # %entry
 	pushq	%rax
 	.cfi_def_cfa_offset 16
-	leaq	.Lfmt.1(%rip), %rdi
 	leaq	.Ltmp(%rip), %rsi
+	movq	%rsi, (%rsp)
+	leaq	.Lfmt.1(%rip), %rdi
 	xorl	%eax, %eax
 	callq	printf@PLT
 	xorl	%eax, %eax
@@ -37,8 +38,8 @@ main:                                   # @main
 
 	.type	.Ltmp,@object           # @tmp
 .Ltmp:
-	.asciz	"Hello World!"
-	.size	.Ltmp, 13
+	.asciz	"Hello!"
+	.size	.Ltmp, 7
 
 
 	.section	".note.GNU-stack","",@progbits

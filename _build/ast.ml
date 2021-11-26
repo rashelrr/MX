@@ -3,9 +3,9 @@ type op = Add | Sub | Mult | Div | Equal | Neq | Less | Leq
 
 type uop = Neg | Not | Transpose
 
-type typ = Int | Bool | Float | Void | String | Matrix
+type typ = Int | Bool | Float | Void | String | Matrix of typ
 
-type bind = typ * string
+type bind = typ * string 
 
 type expr = Literal of int | Fliteral of string | BoolLit of bool
             | Id of string
