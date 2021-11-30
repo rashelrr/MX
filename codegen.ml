@@ -4,8 +4,11 @@ open Sast
 
 module StringMap = Map.Make(String)
 
+(* translate : Sast.program -> Llvm.module *)
 let translate (globals, functions) =
   let context    = L.global_context () in
+  let llmem = L.MemoryBuffer.of_file "mx.bc" in
+  let llm = Llvm_bitreader.parse_bitcode context llmem in
 
   let the_module = L.create_module context "MX" in
 
@@ -14,7 +17,11 @@ let translate (globals, functions) =
   and i1_t       = L.i1_type     context
   and float_t    = L.double_type context
   and string_t   = L.pointer_type (L.i8_type context)
-  and void_t     = L.void_type   context in
+  and void_t     = L.void_type   context
+  and matrix_t   = L.pointer_type (match L.type_by_name llm "struct.matrix" with
+      None -> raise (Failure "Missing implementation for struct Matrix")
+    | Some t -> t)
+  in
   
 
   (* Return the LLVM type for a MicroC type *)
@@ -24,6 +31,7 @@ let translate (globals, functions) =
     | A.String-> string_t
     | A.Float -> float_t
     | A.Void  -> void_t
+    | A.Matrix _ -> matrix_t
   in
 
   (* Create a map of global variables after creating each *)

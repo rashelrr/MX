@@ -10,7 +10,7 @@ type bind = typ * string
 type expr = Literal of int | Fliteral of string | BoolLit of bool
             | Id of string
             | Stringlit of string
-            | Mx of int list list list
+            | Mx of int list list
             | Binop of expr * op * expr | Unop of uop * expr
             | Assign of string * expr
             | Call of string * expr list
@@ -83,6 +83,7 @@ let string_of_typ = function
   | Float -> "float"
   | Void -> "void"
   | String -> "string"
+  | Matrix _ -> "matrix"
 
 let string_of_vdecl (t, id) = string_of_typ t ^ " " ^ id ^ ";\n"
 
