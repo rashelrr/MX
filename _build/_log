@@ -28,7 +28,7 @@ ocamlfind ocamlc -c -w +a-4 -package llvm -package llvm.analysis -package llvm.b
 File "sast.ml", line 37, characters 34-526:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
-Smx _
+SMx _
 # Target: parser.mly, tags: { package(llvm), package(llvm.analysis), package(llvm.bitreader), warn(+a-4), extension:mly, file:parser.mly, infer, ocaml, ocamlyacc, parser, quiet, traverse }
 /usr/bin/ocamlyacc parser.mly
 # Target: parser.mli.depends, tags: { package(llvm), package(llvm.analysis), package(llvm.bitreader), warn(+a-4), extension:mli, file:parser.mli, ocaml, ocamldep, quiet, traverse }
@@ -59,16 +59,11 @@ Transpose
 File "codegen.ml", line 105, characters 44-2866:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
-Smx _
+SMx _
 # Target: scanner.cmo, tags: { package(llvm), package(llvm.analysis), package(llvm.bitreader), warn(+a-4), byte, compile, extension:cmo, extension:ml, file:scanner.cmo, file:scanner.ml, implem, ocaml, quiet, traverse }
 ocamlfind ocamlc -c -w +a-4 -package llvm -package llvm.analysis -package llvm.bitreader -o scanner.cmo scanner.ml
 # Target: semant.cmo, tags: { package(llvm), package(llvm.analysis), package(llvm.bitreader), warn(+a-4), byte, compile, extension:cmo, extension:ml, file:semant.cmo, file:semant.ml, implem, ocaml, quiet, traverse }
 ocamlfind ocamlc -c -w +a-4 -package llvm -package llvm.analysis -package llvm.bitreader -o semant.cmo semant.ml
-+ ocamlfind ocamlc -c -w +a-4 -package llvm -package llvm.analysis -package llvm.bitreader -o semant.cmo semant.ml
-File "semant.ml", line 95, characters 19-2654:
-Warning 8: this pattern-matching is not exhaustive.
-Here is an example of a case that is not matched:
-Mx _
 # Target: mx.cmo, tags: { package(llvm), package(llvm.analysis), package(llvm.bitreader), warn(+a-4), byte, compile, extension:cmo, extension:ml, file:mx.cmo, file:mx.ml, implem, ocaml, quiet, traverse }
 ocamlfind ocamlc -c -w +a-4 -package llvm -package llvm.analysis -package llvm.bitreader -o mx.cmo mx.ml
 # Target: ast.cmx, tags: { package(llvm), package(llvm.analysis), package(llvm.bitreader), warn(+a-4), compile, extension:cmx, extension:ml, file:ast.cmx, file:ast.ml, implem, native, ocaml, quiet, traverse }
@@ -92,7 +87,7 @@ ocamlfind ocamlopt -c -w +a-4 -package llvm -package llvm.analysis -package llvm
 File "sast.ml", line 37, characters 34-526:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
-Smx _
+SMx _
 # Target: parser.ml.depends, tags: { package(llvm), package(llvm.analysis), package(llvm.bitreader), warn(+a-4), extension:ml, file:parser.ml, ocaml, ocamldep, quiet, traverse }
 ocamlfind ocamldep -package llvm -package llvm.analysis -package llvm.bitreader -modules parser.ml > parser.ml.depends
 # Target: parser.cmx, tags: { package(llvm), package(llvm.analysis), package(llvm.bitreader), warn(+a-4), compile, extension:cmx, extension:ml, file:parser.cmx, file:parser.ml, implem, native, ocaml, quiet, traverse }
@@ -115,16 +110,11 @@ Transpose
 File "codegen.ml", line 105, characters 44-2866:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
-Smx _
+SMx _
 # Target: scanner.cmx, tags: { package(llvm), package(llvm.analysis), package(llvm.bitreader), warn(+a-4), compile, extension:cmx, extension:ml, file:scanner.cmx, file:scanner.ml, implem, native, ocaml, quiet, traverse }
 ocamlfind ocamlopt -c -w +a-4 -package llvm -package llvm.analysis -package llvm.bitreader -o scanner.cmx scanner.ml
 # Target: semant.cmx, tags: { package(llvm), package(llvm.analysis), package(llvm.bitreader), warn(+a-4), compile, extension:cmx, extension:ml, file:semant.cmx, file:semant.ml, implem, native, ocaml, quiet, traverse }
 ocamlfind ocamlopt -c -w +a-4 -package llvm -package llvm.analysis -package llvm.bitreader -o semant.cmx semant.ml
-+ ocamlfind ocamlopt -c -w +a-4 -package llvm -package llvm.analysis -package llvm.bitreader -o semant.cmx semant.ml
-File "semant.ml", line 95, characters 19-2654:
-Warning 8: this pattern-matching is not exhaustive.
-Here is an example of a case that is not matched:
-Mx _
 # Target: mx.cmx, tags: { package(llvm), package(llvm.analysis), package(llvm.bitreader), warn(+a-4), compile, extension:cmx, extension:ml, file:mx.cmx, file:mx.ml, implem, native, ocaml, quiet, traverse }
 ocamlfind ocamlopt -c -w +a-4 -package llvm -package llvm.analysis -package llvm.bitreader -o mx.cmx mx.ml
 # Target: mx.native, tags: { package(llvm), package(llvm.analysis), package(llvm.bitreader), warn(+a-4), dont_link_with, extension:native, file:mx.native, link, native, ocaml, program, quiet, traverse }

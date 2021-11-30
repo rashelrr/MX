@@ -2,10 +2,12 @@
 #include <stdio.h>
 #include <string.h>
 
-struct matrix {
+typedef struct Matrix {
   int num_rows;
   int num_cols;
   int** matrixAddr; // accessed [row][col]
   int buildPosition;
-};
-typedef struct matrix matrix;
+} Matrix;
+// typedef struct matrix matrix;
+
+Matrix m;

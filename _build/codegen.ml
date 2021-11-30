@@ -18,8 +18,8 @@ let translate (globals, functions) =
   and float_t    = L.double_type context
   and string_t   = L.pointer_type (L.i8_type context)
   and void_t     = L.void_type   context
-  and matrix_t   = L.pointer_type (match L.type_by_name llm "struct.matrix" with
-      None -> raise (Failure "Missing implementation for struct Matrix")
+  and matrix_t   = L.pointer_type (match L.type_by_name llm "struct.Matrix" with
+      None -> raise (Failure "struct.Matrix not defined")
     | Some t -> t)
   in
   
