@@ -10,4 +10,7 @@ typedef struct Matrix {
 } Matrix;
 // typedef struct matrix matrix;
 
-Matrix m;
+
+Matrix* initMatrix(int a){
+  printf("LMAOOOO");
+};

@@ -1,6 +1,6 @@
 int main(){
     int Matrix m;
     float Matrix f;
-    m = [[2,3,4]];
+    m = [[2,3,5],[6]];
     prints("Done!");
 }

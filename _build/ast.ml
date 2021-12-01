@@ -55,6 +55,17 @@ let rec string_of_expr = function
   | Stringlit(l) -> l
   | BoolLit(true) -> "true"
   | BoolLit(false) -> "false"
+  | Mx(l) -> (* let printlist l = List.iter (fun x -> print_int x) l in List.iter (fun ll -> printlist ll) l; *) "lol"   (* WE SHOULD PROBABLY COME BACK TO THIS *)
+  
+    (*
+    begin match l with
+    [] -> "[]"
+    |hd::tl -> let string = "[" ^ "hd" in print_endline string; string
+    end
+    *)
+
+    (*let printlist l = List.iter (fun x -> print_int x) l in List.iter (fun ll -> printlist ll) l; "lol"   *) 
+    (* let printlist l = List.iter (fun x -> print_endline x) l in List.iter (fun ll -> printlist ll) l; l *) 
   | Id(s) -> s
   | Binop(e1, o, e2) ->
       string_of_expr e1 ^ " " ^ string_of_op o ^ " " ^ string_of_expr e2

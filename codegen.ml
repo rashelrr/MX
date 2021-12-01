@@ -53,6 +53,11 @@ let translate (globals, functions) =
   let printbig_func : L.llvalue =
       L.declare_function "printbig" printbig_t the_module in
 
+  let init_matrix_t = 
+      L.function_type matrix_t [|i32_t|] in
+  let init_matrix_f = 
+      L.declare_function "initMatrix" init_matrix_t the_module in
+
   (* Define each function (arguments and return type) so we can 
      call it even before we've created its body *)
   let function_decls : (L.llvalue * sfunc_decl) StringMap.t =
@@ -109,6 +114,7 @@ let translate (globals, functions) =
       | SFliteral l -> L.const_float_of_string float_t l
       | SNoexpr     -> L.const_int i32_t 0
       | SId s       -> L.build_load (lookup s) s builder
+      | SMx l       -> L.build_call init_matrix_f [| L.const_int i32_t 2|] "init_matrix" builder
       | SAssign (s, e) -> let e' = expr builder e in
                           ignore(L.build_store e' (lookup s) builder); e'
       | SBinop ((A.Float,_ ) as e1, op, e2) ->
