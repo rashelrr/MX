@@ -6,17 +6,15 @@
 main:                                   # @main
 	.cfi_startproc
 # %bb.0:                                # %entry
-	subq	$24, %rsp
-	.cfi_def_cfa_offset 32
-	movl	$2, %edi
-	callq	initMatrix@PLT
-	movq	%rax, 8(%rsp)
-	leaq	.Lfmt.1(%rip), %rdi
+	pushq	%rax
+	.cfi_def_cfa_offset 16
 	leaq	.Ltmp(%rip), %rsi
+	movq	%rsi, (%rsp)
+	leaq	.Lfmt.1(%rip), %rdi
 	xorl	%eax, %eax
 	callq	printf@PLT
 	xorl	%eax, %eax
-	addq	$24, %rsp
+	popq	%rcx
 	retq
 .Lfunc_end0:
 	.size	main, .Lfunc_end0-main
@@ -40,8 +38,8 @@ main:                                   # @main
 
 	.type	.Ltmp,@object           # @tmp
 .Ltmp:
-	.asciz	"Done!"
-	.size	.Ltmp, 6
+	.asciz	"Hello!"
+	.size	.Ltmp, 7
 
 
 	.section	".note.GNU-stack","",@progbits

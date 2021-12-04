@@ -14,6 +14,7 @@ let translate (globals, functions) =
 
   let i32_t      = L.i32_type    context
   and i8_t       = L.i8_type     context
+  and arr_t      = L.array_type 
   and i1_t       = L.i1_type     context
   and float_t    = L.double_type context
   and string_t   = L.pointer_type (L.i8_type context)
@@ -114,7 +115,9 @@ let translate (globals, functions) =
       | SFliteral l -> L.const_float_of_string float_t l
       | SNoexpr     -> L.const_int i32_t 0
       | SId s       -> L.build_load (lookup s) s builder
-      | SMx l       -> L.build_call init_matrix_f [| L.const_int i32_t 2|] "init_matrix" builder
+      | SMx l       -> (* let array = Array.of_list (List.map Array.of_list l) in *)
+      
+      L.build_call init_matrix_f [| L.const_int i32_t 2 |] "init_matrix" builder 
       | SAssign (s, e) -> let e' = expr builder e in
                           ignore(L.build_store e' (lookup s) builder); e'
       | SBinop ((A.Float,_ ) as e1, op, e2) ->
