@@ -26,4 +26,7 @@ mx.bc : mx.c
 .PHONY : clean
 clean :
 	ocamlbuild -clean
-	rm -rf testall.log ocamlllvm *.diff *.exe *.s *.ll *.bc *.o
+	rm -rf testall.log ocamlllvm *.diff *.exe *.s *.ll *.bc *.o tests/*.exe tests/*.s tests/*.ll
+
+
+
