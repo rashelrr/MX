@@ -4,17 +4,25 @@ open Sast
 
 module StringMap = Map.Make(String)
 
+(* translate : Sast.program -> Llvm.module *)
 let translate (globals, functions) =
   let context    = L.global_context () in
+  let llmem = L.MemoryBuffer.of_file "mx.bc" in
+  let llm = Llvm_bitreader.parse_bitcode context llmem in
 
   let the_module = L.create_module context "MX" in
 
   let i32_t      = L.i32_type    context
   and i8_t       = L.i8_type     context
+  and arr_t      = L.array_type 
   and i1_t       = L.i1_type     context
   and float_t    = L.double_type context
   and string_t   = L.pointer_type (L.i8_type context)
-  and void_t     = L.void_type   context in
+  and void_t     = L.void_type   context
+  and matrix_t   = L.pointer_type (match L.type_by_name llm "struct.Matrix" with
+      None -> raise (Failure "struct.Matrix not defined")
+    | Some t -> t)
+  in
   
 
   (* Return the LLVM type for a MicroC type *)
@@ -24,6 +32,7 @@ let translate (globals, functions) =
     | A.String-> string_t
     | A.Float -> float_t
     | A.Void  -> void_t
+    | A.Matrix _ -> matrix_t
   in
 
   (* Create a map of global variables after creating each *)
@@ -44,6 +53,11 @@ let translate (globals, functions) =
       L.function_type i32_t [| i32_t |] in
   let printbig_func : L.llvalue =
       L.declare_function "printbig" printbig_t the_module in
+
+  let init_matrix_t = 
+      L.function_type matrix_t [|i32_t|] in
+  let init_matrix_f = 
+      L.declare_function "initMatrix" init_matrix_t the_module in
 
   (* Define each function (arguments and return type) so we can 
      call it even before we've created its body *)
@@ -101,6 +115,9 @@ let translate (globals, functions) =
       | SFliteral l -> L.const_float_of_string float_t l
       | SNoexpr     -> L.const_int i32_t 0
       | SId s       -> L.build_load (lookup s) s builder
+      | SMx l       -> (* let array = Array.of_list (List.map Array.of_list l) in *)
+      
+      L.build_call init_matrix_f [| L.const_int i32_t 2 |] "init_matrix" builder 
       | SAssign (s, e) -> let e' = expr builder e in
                           ignore(L.build_store e' (lookup s) builder); e'
       | SBinop ((A.Float,_ ) as e1, op, e2) ->

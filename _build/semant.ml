@@ -97,6 +97,7 @@ let check (globals, functions) =
       | Fliteral l -> (Float, SFliteral l)
       | Stringlit l-> (String, SStringlit l)
       | BoolLit l  -> (Bool, SBoolLit l)
+      | Mx l       -> (Matrix(Int), SMx l)
       | Noexpr     -> (Void, SNoexpr)
       | Id s       -> (type_of_identifier s, SId s)
       | Assign(var, e) as ex -> 

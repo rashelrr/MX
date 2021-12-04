@@ -69,8 +69,8 @@ matrix_literal:
 
 row_list:
           /* nothing */                                                 { [] }
-          | LBRACKET elems_list RBRACKET                                { [[$2]] }      /* Matrix m = [[1,2,3]] */
-          | row_list COMMA LBRACKET elems_list RBRACKET                 { [$4]::$1 }    /* Matrix m = [[1,2,3],[4,5,6],[7,8,9]] */
+          | LBRACKET elems_list RBRACKET                                { [$2] }      /* Matrix m = [[1,2,3]] */
+          | row_list COMMA LBRACKET elems_list RBRACKET                 { $4::$1 }    /* Matrix m = [[1,2,3],[4,5,6],[7,8,9]] */
                                                                                         /* Matrix m = [,[1,2,3]] */     
 
 elems_list:

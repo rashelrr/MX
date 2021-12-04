@@ -2,7 +2,7 @@
 # to test linking external code
 
 .PHONY : all
-all : mx.native
+all : mx.native mx.o
 
 # "make microc.native" compiles the compiler
 #
@@ -11,13 +11,19 @@ all : mx.native
 #
 # See https://github.com/ocaml/ocamlbuild/blob/master/manual/manual.adoc
 
-mx.native :
+mx.native : mx.bc
 	opam exec -- \
-	ocamlbuild -use-ocamlfind mx.native
+	ocamlbuild -use-ocamlfind mx.native -pkgs llvm,llvm.analysis,llvm.bitreader
 
 # "make clean" removes all generated files
+
+mx : mx.c
+	cc -o mx -DBUILD_TEST mx.c
+
+mx.bc : mx.c
+	clang -emit-llvm -o mx.bc -c mx.c -Wno-varargs
 
 .PHONY : clean
 clean :
 	ocamlbuild -clean
-	rm -rf testall.log ocamlllvm *.diff *.exe *.s *.ll
+	rm -rf testall.log ocamlllvm *.diff *.exe *.s *.ll *.bc *.o

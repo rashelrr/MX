@@ -1,6 +1,8 @@
 ; ModuleID = 'MX'
 source_filename = "MX"
 
+%struct.Matrix = type { i32, i32, i32**, i32 }
+
 @fmt = private unnamed_addr constant [4 x i8] c"%d\0A\00", align 1
 @fmt.1 = private unnamed_addr constant [3 x i8] c"%s\00", align 1
 @fmt.2 = private unnamed_addr constant [4 x i8] c"%g\0A\00", align 1
@@ -9,6 +11,8 @@ source_filename = "MX"
 declare i32 @printf(i8*, ...)
 
 declare i32 @printbig(i32)
+
+declare %struct.Matrix* @initMatrix(i32)
 
 define i32 @main() {
 entry:
