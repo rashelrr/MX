@@ -73,7 +73,7 @@ matrix *initMatrix_CG (int num_rows, int num_cols)
 	return initMatrix (NULL, num_rows, num_cols);
 }
 
-matrix *mxAdd (matrix *lhs, matrix *rhs)
+matrix *mxplus (matrix *lhs, matrix *rhs)
 {
 	//verify dimensions
 	if (lhs -> nums_rows != rhs -> num_rows || lhs -> num_cols != rhs -> num_cols)
@@ -95,7 +95,7 @@ matrix *mxAdd (matrix *lhs, matrix *rhs)
 	return res;
 }
 
-matrix *mxSub (matrix *lhs, matrix *rhs)
+matrix *mxminus (matrix *lhs, matrix *rhs)
 {
 	//verify dimensions
 	if (lhs -> nums_rows != rhs -> num_rows || lhs -> num_cols != rhs -> num_cols)
@@ -110,14 +110,14 @@ matrix *mxSub (matrix *lhs, matrix *rhs)
 	{
 		for (int j = 0; j < cols; j++)
 		{
-			int sum = lhs -> matrixAddr[i][j] - rhs -> matrixAdrr[i][j];
-			res -> matrixAddr[i][j] = sum;
+			int sub = lhs -> matrixAddr[i][j] - rhs -> matrixAdrr[i][j];
+			res -> matrixAddr[i][j] = sub;
 		}
 	}
 	return res;
 }
 
-matrix *mxMult (matrix *lhs, matrix *rhs)
+matrix *mxmx (matrix *lhs, matrix *rhs)
 {
 	//verify dimensions
 	if (lhs -> num_cols != rhs -> num_rows)
@@ -139,4 +139,41 @@ matrix *mxMult (matrix *lhs, matrix *rhs)
 	}
 	return res;
 }
+
+matrix *mxScale (int scalar, matrix *input)
+{
+
+	int rows = input -> num_rows;
+	int cols = input -> num_cols;
+	matrix *res = initmatrix (NULL, rows, cols);
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			for (int k = 0; k < rhs -> num_rows; k++)
+			{
+				int prod = scalar * input -> matrixAddr[i][j];
+				res -> matrixAddr[i][j] = prod;
+			}
+		}
+	}
+	return res;
+}
+
+matrix *transpose(matrix *input)
+{
+	int rows = input -> num_rows;
+	int cols = input -> num_cols;
+	matrix *res = initMatrix (NULL, rows, cols);
+	
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			res -> matrixAddr[i][j] = input -> matrixAddr[j][i];
+		}
+	}
+	
+	return res;
+}	
 
