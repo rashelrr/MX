@@ -175,5 +175,19 @@ matrix *transpose(matrix *input)
 	}
 	
 	return res;
-}	
+}
+
+void printmatrix (matrix *input)
+{
+	int row = input -> num_rows;
+	int col = input -> num_cols;
+	for (int i = 0; i < row; i++)
+	{
+		for (int j = 0; j < col; j++)
+		{
+			printf ("%d ", input -> matrixAddr[i][j]);
+		}
+		printf("\n");
+	}
+}
 
