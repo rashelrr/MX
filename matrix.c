@@ -12,7 +12,7 @@ struct matrix
 {
   int num_rows;
   int num_cols;
-  int** matrixAddr; // accessed [row][col]
+  int* matrixAddr; // accessed [row][col]
   int buildPosition;
 };
 typedef struct matrix matrix;
@@ -21,7 +21,7 @@ int debug = 0;
 
 matrix *initMatrix (int *list_of_values, int num_rows, int num_cols)
 {
-	int **matrixValues = malloc (num_rows * num_cols * sizeof (int *));
+	int *matrixValues = malloc (num_rows * num_cols * sizeof (int *));
 	
 	//set all values in the matrix equal to 0 if the list of values is NULL
 	if (list_of_values == NULL)
@@ -76,7 +76,7 @@ matrix *initMatrix_CG (int num_rows, int num_cols)
 matrix *mxplus (matrix *lhs, matrix *rhs)
 {
 	//verify dimensions
-	if (lhs -> nums_rows != rhs -> num_rows || lhs -> num_cols != rhs -> num_cols)
+	if (lhs -> num_rows != rhs -> num_rows || lhs -> num_cols != rhs -> num_cols)
 	{
 		die ("matrix addition size mismatch");
 	}
@@ -88,7 +88,7 @@ matrix *mxplus (matrix *lhs, matrix *rhs)
 	{
 		for (int j = 0; j < cols; j++)
 		{
-			int sum = lhs -> matrixAddr[i][j] + rhs -> matrixAdrr[i][j];
+			int sum = lhs -> matrixAddr[i][j] + rhs -> matrixAddr[i][j];
 			res -> matrixAddr[i][j] = sum;
 		}
 	}
@@ -98,7 +98,7 @@ matrix *mxplus (matrix *lhs, matrix *rhs)
 matrix *mxminus (matrix *lhs, matrix *rhs)
 {
 	//verify dimensions
-	if (lhs -> nums_rows != rhs -> num_rows || lhs -> num_cols != rhs -> num_cols)
+	if (lhs -> num_rows != rhs -> num_rows || lhs -> num_cols != rhs -> num_cols)
 	{
 		die ("matrix subtraction size mismatch");
 	}
@@ -110,7 +110,7 @@ matrix *mxminus (matrix *lhs, matrix *rhs)
 	{
 		for (int j = 0; j < cols; j++)
 		{
-			int sub = lhs -> matrixAddr[i][j] - rhs -> matrixAdrr[i][j];
+			int sub = lhs -> matrixAddr[i][j] - rhs -> matrixAddr[i][j];
 			res -> matrixAddr[i][j] = sub;
 		}
 	}
@@ -126,7 +126,7 @@ matrix *mxmx (matrix *lhs, matrix *rhs)
 	}
 	int rows = lhs -> num_rows;
 	int cols = rhs -> num_cols;
-	matrix *res = initmatrix (NULL, rows, cols);
+	matrix *res = initMatrix (NULL, rows, cols);
 	for (int i = 0; i < rows; i++)
 	{
 		for (int j = 0; j < cols; j++)
@@ -145,12 +145,12 @@ matrix *mxScale (int scalar, matrix *input)
 
 	int rows = input -> num_rows;
 	int cols = input -> num_cols;
-	matrix *res = initmatrix (NULL, rows, cols);
+	matrix *res = initMatrix (NULL, rows, cols);
 	for (int i = 0; i < rows; i++)
 	{
 		for (int j = 0; j < cols; j++)
 		{
-			for (int k = 0; k < rhs -> num_rows; k++)
+			for (int k = 0; k < input -> num_rows; k++)
 			{
 				int prod = scalar * input -> matrixAddr[i][j];
 				res -> matrixAddr[i][j] = prod;
@@ -160,7 +160,7 @@ matrix *mxScale (int scalar, matrix *input)
 	return res;
 }
 
-matrix *transpose(matrix *input)
+matrix *transpose (matrix *input)
 {
 	int rows = input -> num_rows;
 	int cols = input -> num_cols;
@@ -175,7 +175,7 @@ matrix *transpose(matrix *input)
 	}
 	
 	return res;
-}
+}	
 
 void printmatrix (matrix *input)
 {
