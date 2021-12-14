@@ -111,19 +111,4 @@ void display(Matrix* input) {
     }
 }
 
-Matrix *transpose(Matrix *input)
-{
-	int rows = input -> num_rows;
-	int cols = input -> num_cols;
-	matrix *res = initMatrix (NULL, rows, cols);
-	
-	for (int i = 0; i < rows; i++)
-	{
-		for (int j = 0; j < cols; j++)
-		{
-			res -> matrixAddr[i][j] = input -> matrixAddr[j][i];
-		}
-	}
-	
-	return res;
-}
+
