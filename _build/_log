@@ -12,11 +12,7 @@ File "ast.ml", line 34, characters 19-220:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 (Mxadd|Mxsub|Mxtimes|Mxscale)
-File "ast.ml", line 48, characters 20-58:
-Warning 8: this pattern-matching is not exhaustive.
-Here is an example of a case that is not matched:
-Transpose
-File "ast.ml", line 58, characters 6-9:
+File "ast.ml", line 59, characters 6-9:
 Warning 27: unused variable l.
 # Target: sast.ml.depends, tags: { package(llvm), package(llvm.analysis), package(llvm.bitreader), warn(+a-4), extension:ml, file:sast.ml, ocaml, ocamldep, quiet, traverse }
 ocamlfind ocamldep -package llvm -package llvm.analysis -package llvm.bitreader -modules sast.ml > sast.ml.depends
@@ -42,15 +38,15 @@ ocamlfind ocamldep -package llvm -package llvm.analysis -package llvm.bitreader 
 # Target: codegen.cmo, tags: { package(llvm), package(llvm.analysis), package(llvm.bitreader), warn(+a-4), byte, compile, extension:cmo, extension:ml, file:codegen.cmo, file:codegen.ml, implem, ocaml, quiet, traverse }
 ocamlfind ocamlc -c -w +a-4 -package llvm -package llvm.analysis -package llvm.bitreader -o codegen.cmo codegen.ml
 + ocamlfind ocamlc -c -w +a-4 -package llvm -package llvm.analysis -package llvm.bitreader -o codegen.cmo codegen.ml
-File "codegen.ml", line 140, characters 3-506:
+File "codegen.ml", line 144, characters 3-506:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 (Mxadd|Mxsub|Mxtimes|Mxscale)
-File "codegen.ml", line 157, characters 3-459:
+File "codegen.ml", line 161, characters 3-459:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 (Mxadd|Mxsub|Mxtimes|Mxscale)
-File "codegen.ml", line 173, characters 3-156:
+File "codegen.ml", line 177, characters 3-156:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 Transpose
@@ -61,7 +57,7 @@ ocamlfind ocamlc -c -w +a-4 -package llvm -package llvm.analysis -package llvm.b
 # Target: semant.cmo, tags: { package(llvm), package(llvm.analysis), package(llvm.bitreader), warn(+a-4), byte, compile, extension:cmo, extension:ml, file:semant.cmo, file:semant.ml, implem, ocaml, quiet, traverse }
 ocamlfind ocamlc -c -w +a-4 -package llvm -package llvm.analysis -package llvm.bitreader -o semant.cmo semant.ml
 + ocamlfind ocamlc -c -w +a-4 -package llvm -package llvm.analysis -package llvm.bitreader -o semant.cmo semant.ml
-File "semant.ml", line 112, characters 6-17:
+File "semant.ml", line 116, characters 6-17:
 Warning 10: this expression should have type unit.
 # Target: mx.cmo, tags: { package(llvm), package(llvm.analysis), package(llvm.bitreader), warn(+a-4), byte, compile, extension:cmo, extension:ml, file:mx.cmo, file:mx.ml, implem, ocaml, quiet, traverse }
 ocamlfind ocamlc -c -w +a-4 -package llvm -package llvm.analysis -package llvm.bitreader -o mx.cmo mx.ml
@@ -72,11 +68,7 @@ File "ast.ml", line 34, characters 19-220:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 (Mxadd|Mxsub|Mxtimes|Mxscale)
-File "ast.ml", line 48, characters 20-58:
-Warning 8: this pattern-matching is not exhaustive.
-Here is an example of a case that is not matched:
-Transpose
-File "ast.ml", line 58, characters 6-9:
+File "ast.ml", line 59, characters 6-9:
 Warning 27: unused variable l.
 # Target: sast.cmx, tags: { package(llvm), package(llvm.analysis), package(llvm.bitreader), warn(+a-4), compile, extension:cmx, extension:ml, file:sast.cmx, file:sast.ml, implem, native, ocaml, quiet, traverse }
 ocamlfind ocamlopt -c -w +a-4 -package llvm -package llvm.analysis -package llvm.bitreader -o sast.cmx sast.ml
@@ -92,15 +84,15 @@ ocamlfind ocamlopt -c -w +a-4 -package llvm -package llvm.analysis -package llvm
 # Target: codegen.cmx, tags: { package(llvm), package(llvm.analysis), package(llvm.bitreader), warn(+a-4), compile, extension:cmx, extension:ml, file:codegen.cmx, file:codegen.ml, implem, native, ocaml, quiet, traverse }
 ocamlfind ocamlopt -c -w +a-4 -package llvm -package llvm.analysis -package llvm.bitreader -o codegen.cmx codegen.ml
 + ocamlfind ocamlopt -c -w +a-4 -package llvm -package llvm.analysis -package llvm.bitreader -o codegen.cmx codegen.ml
-File "codegen.ml", line 140, characters 3-506:
+File "codegen.ml", line 144, characters 3-506:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 (Mxadd|Mxsub|Mxtimes|Mxscale)
-File "codegen.ml", line 157, characters 3-459:
+File "codegen.ml", line 161, characters 3-459:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 (Mxadd|Mxsub|Mxtimes|Mxscale)
-File "codegen.ml", line 173, characters 3-156:
+File "codegen.ml", line 177, characters 3-156:
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 Transpose
@@ -111,7 +103,7 @@ ocamlfind ocamlopt -c -w +a-4 -package llvm -package llvm.analysis -package llvm
 # Target: semant.cmx, tags: { package(llvm), package(llvm.analysis), package(llvm.bitreader), warn(+a-4), compile, extension:cmx, extension:ml, file:semant.cmx, file:semant.ml, implem, native, ocaml, quiet, traverse }
 ocamlfind ocamlopt -c -w +a-4 -package llvm -package llvm.analysis -package llvm.bitreader -o semant.cmx semant.ml
 + ocamlfind ocamlopt -c -w +a-4 -package llvm -package llvm.analysis -package llvm.bitreader -o semant.cmx semant.ml
-File "semant.ml", line 112, characters 6-17:
+File "semant.ml", line 116, characters 6-17:
 Warning 10: this expression should have type unit.
 # Target: mx.cmx, tags: { package(llvm), package(llvm.analysis), package(llvm.bitreader), warn(+a-4), compile, extension:cmx, extension:ml, file:mx.cmx, file:mx.ml, implem, native, ocaml, quiet, traverse }
 ocamlfind ocamlopt -c -w +a-4 -package llvm -package llvm.analysis -package llvm.bitreader -o mx.cmx mx.ml

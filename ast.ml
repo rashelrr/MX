@@ -48,6 +48,7 @@ let string_of_op = function
 let string_of_uop = function
     Neg -> "-"
   | Not -> "!"
+  | Transpose -> "'"
 
 let rec string_of_expr = function
     Literal(l) -> string_of_int l

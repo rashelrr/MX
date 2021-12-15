@@ -8,11 +8,11 @@ main:                                   # @main
 # %bb.0:                                # %entry
 	pushq	%rbx
 	.cfi_def_cfa_offset 16
-	subq	$16, %rsp
-	.cfi_def_cfa_offset 32
+	subq	$32, %rsp
+	.cfi_def_cfa_offset 48
 	.cfi_offset %rbx, -16
 	movl	$4, %edi
-	movl	$2, %esi
+	movl	$3, %esi
 	callq	initMatrix@PLT
 	movq	%rax, %rbx
 	movl	$2, %esi
@@ -21,10 +21,16 @@ main:                                   # @main
 	movl	$3, %esi
 	movq	%rbx, %rdi
 	callq	store@PLT
+	movl	$4, %esi
+	movq	%rbx, %rdi
+	callq	store@PLT
 	movl	$6, %esi
 	movq	%rbx, %rdi
 	callq	store@PLT
 	movl	$4, %esi
+	movq	%rbx, %rdi
+	callq	store@PLT
+	movl	$5, %esi
 	movq	%rbx, %rdi
 	callq	store@PLT
 	movl	$7, %esi
@@ -33,21 +39,107 @@ main:                                   # @main
 	movl	$8, %esi
 	movq	%rbx, %rdi
 	callq	store@PLT
+	movl	$1, %esi
+	movq	%rbx, %rdi
+	callq	store@PLT
 	movl	$9, %esi
 	movq	%rbx, %rdi
 	callq	store@PLT
 	movl	$7, %esi
 	movq	%rbx, %rdi
 	callq	store@PLT
-	movq	%rbx, (%rsp)
+	movl	$8, %esi
 	movq	%rbx, %rdi
+	callq	store@PLT
+	movq	%rbx, 8(%rsp)
+	movl	$2, %edi
+	movl	$3, %esi
+	callq	initMatrix@PLT
+	movq	%rax, %rbx
+	movl	$1, %esi
+	movq	%rbx, %rdi
+	callq	store@PLT
+	movl	$2, %esi
+	movq	%rbx, %rdi
+	callq	store@PLT
+	movl	$4, %esi
+	movq	%rbx, %rdi
+	callq	store@PLT
+	movl	$3, %esi
+	movq	%rbx, %rdi
+	callq	store@PLT
+	movl	$4, %esi
+	movq	%rbx, %rdi
+	callq	store@PLT
+	movl	$5, %esi
+	movq	%rbx, %rdi
+	callq	store@PLT
+	movq	%rbx, 24(%rsp)
+	movl	$3, %edi
+	movl	$4, %esi
+	callq	initMatrix@PLT
+	movq	%rax, %rbx
+	movl	$1, %esi
+	movq	%rbx, %rdi
+	callq	store@PLT
+	movl	$2, %esi
+	movq	%rbx, %rdi
+	callq	store@PLT
+	movl	$3, %esi
+	movq	%rbx, %rdi
+	callq	store@PLT
+	movl	$4, %esi
+	movq	%rbx, %rdi
+	callq	store@PLT
+	movl	$4, %esi
+	movq	%rbx, %rdi
+	callq	store@PLT
+	movl	$5, %esi
+	movq	%rbx, %rdi
+	callq	store@PLT
+	movl	$2, %esi
+	movq	%rbx, %rdi
+	callq	store@PLT
+	movl	$3, %esi
+	movq	%rbx, %rdi
+	callq	store@PLT
+	movl	$7, %esi
+	movq	%rbx, %rdi
+	callq	store@PLT
+	movl	$5, %esi
+	movq	%rbx, %rdi
+	callq	store@PLT
+	movl	$2, %esi
+	movq	%rbx, %rdi
+	callq	store@PLT
+	movl	$3, %esi
+	movq	%rbx, %rdi
+	callq	store@PLT
+	movq	%rbx, 16(%rsp)
+	movq	8(%rsp), %rdi
+	callq	transpose@PLT
+	movq	%rax, 8(%rsp)
+	movq	%rax, %rdi
 	callq	display@PLT
-	leaq	.Lfmt.1(%rip), %rdi
+	leaq	.Lfmt.1(%rip), %rbx
 	leaq	.Ltmp(%rip), %rsi
 	xorl	%eax, %eax
+	movq	%rbx, %rdi
+	callq	printf@PLT
+	movq	24(%rsp), %rdi
+	callq	display@PLT
+	leaq	.Ltmp.3(%rip), %rsi
+	xorl	%eax, %eax
+	movq	%rbx, %rdi
+	callq	printf@PLT
+	movq	16(%rsp), %rdi
+	callq	display@PLT
+	leaq	.Ltmp.4(%rip), %rsi
+	xorl	%eax, %eax
+	movq	%rbx, %rdi
 	callq	printf@PLT
 	xorl	%eax, %eax
-	addq	$16, %rsp
+	addq	$32, %rsp
 	popq	%rbx
 	retq
 .Lfunc_end0:
@@ -72,8 +164,18 @@ main:                                   # @main
 
 	.type	.Ltmp,@object           # @tmp
 .Ltmp:
+	.asciz	"=============================================="
+	.size	.Ltmp, 47
+
+	.type	.Ltmp.3,@object         # @tmp.3
+.Ltmp.3:
+	.asciz	"=============================================="
+	.size	.Ltmp.3, 47
+
+	.type	.Ltmp.4,@object         # @tmp.4
+.Ltmp.4:
 	.asciz	"Done!"
-	.size	.Ltmp, 6
+	.size	.Ltmp.4, 6
 
 
 	.section	".note.GNU-stack","",@progbits

@@ -69,6 +69,11 @@ let translate (globals, functions) =
   let print_matrix_f = 
       L.declare_function "display" print_matrix_t the_module in
 
+  let transpose_t = 
+      L.function_type matrix_t [|matrix_t|] in
+  let transpose_f = 
+      L.declare_function "transpose" transpose_t the_module in
+
   (* Define each function (arguments and return type) so we can 
      call it even before we've created its body *)
   let function_decls : (L.llvalue * sfunc_decl) StringMap.t =
@@ -130,7 +135,6 @@ let translate (globals, functions) =
       let m = L.build_call init_matrix_f [| L.const_int i32_t rows; L.const_int i32_t cols |] "init_matrix" builder in 
       let flat_list = List.flatten l in 
       ignore( List.map (fun v -> L.build_call store_matrix_f [| m ; L.const_int i32_t v |] "store_matrix" builder) flat_list ); m
-      (* L.build_call init_matrix_f [| L.const_int i32_t 2 |] "init_matrix" builder *) 
 
       | SAssign (s, e) -> let e' = expr builder e in
                           ignore(L.build_store e' (lookup s) builder); e'
@@ -181,6 +185,10 @@ let translate (globals, functions) =
 	  L.build_call printbig_func [| (expr builder e) |] "printbig" builder
       | SCall ("print_matrix", [e]) ->
 	  L.build_call print_matrix_f [| (expr builder e) |] "printbig" builder
+
+      | SCall ("transpose", [e]) ->
+	  L.build_call transpose_f [| (expr builder e) |] "transpose" builder
+    
       | SCall ("printf", [e]) -> 
 	  L.build_call printf_func [| float_format_str ; (expr builder e) |]
 	    "printf" builder

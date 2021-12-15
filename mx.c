@@ -27,13 +27,7 @@ typedef struct Matrix {
 //   printf("LMAOOOO \n");
 // };
 
-Matrix* store(Matrix *m, int value){
-  printf("LMAOOOO \n");
-  printf("%i\n", value);
-  printf("LMAOOOO \n");
-  
-  m->num_cols = 2;
-  m->num_rows = 3;
+Matrix* store(Matrix *m, int value){  
   int position = m->buildPosition;
   int curr_row = position / m->num_cols;
   int curr_col = position % m->num_cols;
@@ -44,8 +38,12 @@ Matrix* store(Matrix *m, int value){
 }
 
 Matrix* initMatrix( int rows, int cols ) {
+
+  // printf("COLS + ROWS");
+  // printf("ROWS %d",rows);
+  // printf("COLS %d",cols);
   int size = rows * cols;
-  int *p = malloc(sizeof(int)*size);
+  int *p = malloc(sizeof(int*)*size);
   
   for (int i = 0; i <= size; i++)
   {
@@ -57,6 +55,7 @@ Matrix* initMatrix( int rows, int cols ) {
   result->num_rows = rows;
   result->matrixAddr = p;
   result->buildPosition = 0;
+  
   return result;
 }
 
@@ -78,7 +77,38 @@ int get(struct Matrix* m, int r,int c){
   return m->matrixAddr[idx];
 }
 
+void set( struct Matrix* m,int r,int c,double v){
+  //set m[r][c] to v
+  int kill = 0;
+  if (r>((m->num_rows)-1)){
+    perror("row index out of range when setting matrix ");
+    kill = 1;
+  }
+  if (c>((m->num_cols)-1)){
+    perror("col index out of range when setting matrix ");
+    kill = 1;
+  }
+  if(kill==1){
+    die("");
+  }
+  int idx = c + (r * (m->num_cols));
+  m->matrixAddr[idx]=v;
+}
 
+Matrix* transpose(Matrix* input) {
+  //switch rows and cols, get empty(i.e., zeroed matrix of transposed size, then fill)
+  int rows = input->num_rows;
+  int cols = input->num_cols;
+
+  printf("NOW PRINTING:\nROWS:%d\nCOLS:%d", rows, cols);
+  Matrix *result = initMatrix(cols, rows);
+  for(int i=0; i<rows; i++) {
+    for(int j=0; j<cols; j++) {
+        set(result, j,i, get(input,i,j));
+    }
+  }
+  return result;
+}
 
 void display(Matrix* input) {
     int row = input->num_rows;
