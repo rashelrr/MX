@@ -175,9 +175,12 @@ let translate (globals, functions) =
       | SUnop(op, ((t, _) as e)) ->
           let e' = expr builder e in
 	  (match op with
-	    A.Neg when t = A.Float -> L.build_fneg 
-	  | A.Neg                  -> L.build_neg
-          | A.Not                  -> L.build_not) e' "tmp" builder
+	    A.Neg when t = A.Float -> L.build_fneg e' "tmp" builder
+	  | A.Neg                  -> L.build_neg e' "tmp" builder
+    | A.Transpose            -> L.build_call transpose_f [| e' |] "transpose" builder
+    | A.Not                  -> L.build_not e' "tmp" builder
+    | _ -> raise (Failure "internal error: semant should have rejected."))
+
       | SCall ("print", [e]) | SCall ("printb", [e]) ->
 	  L.build_call printf_func [| int_format_str ; (expr builder e) |]
 	    "printf" builder
@@ -188,7 +191,7 @@ let translate (globals, functions) =
 
       | SCall ("transpose", [e]) ->
 	  L.build_call transpose_f [| (expr builder e) |] "transpose" builder
-    
+
       | SCall ("printf", [e]) -> 
 	  L.build_call printf_func [| float_format_str ; (expr builder e) |]
 	    "printf" builder

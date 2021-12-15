@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 
-//We stole this library from Xirtam and added a bunch of stuff they did not have
-
 int debug = 0;
 
 static void die(const char *message)
