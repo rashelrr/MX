@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 
+//We stole this library from Xirtam and added a bunch of stuff they did not have
+
 int debug = 0;
 
 static void die(const char *message)
@@ -30,8 +32,8 @@ Matrix* store(Matrix *m, int value){
   printf("%i\n", value);
   printf("LMAOOOO \n");
   
-  m->num_cols = 3;
-  m->num_rows = 2;
+  m->num_cols = 2;
+  m->num_rows = 3;
   int position = m->buildPosition;
   int curr_row = position / m->num_cols;
   int curr_col = position % m->num_cols;
@@ -75,6 +77,8 @@ int get(struct Matrix* m, int r,int c){
   int idx = c + (r * (m->num_cols));
   return m->matrixAddr[idx];
 }
+
+
 
 void display(Matrix* input) {
     int row = input->num_rows;
