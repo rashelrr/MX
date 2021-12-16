@@ -111,6 +111,44 @@ Matrix* mxAdd(Matrix* lhs, Matrix* rhs) {
   return result;
 }
 
+Matrix *mxSub(Matrix *lhs, Matrix *rhs) 
+{
+  //check dimensions
+  if (lhs->num_rows != rhs->num_rows || lhs->num_cols != rhs->num_cols) {
+    perror("Subtraction size mismatch.");
+  }
+  int rows = lhs->num_rows;
+  int cols = lhs->num_cols;
+  Matrix *result = initMatrix(rows, cols);
+  for(int i=0; i < rows; i++) {
+    for(int j = 0; j < cols; j++) {
+        double res = get(lhs,i,j)-get(rhs,i,j);
+        set(result,i,j,res);
+    }
+  }
+  return result;
+}
+
+Matrix *mxMult(Matrix *lhs, Matrix *rhs)
+{
+  //check dimensions
+  if (lhs->num_cols != rhs->num_rows) {
+    perror("Multiplication size mismatch.");
+  }
+  int rows = lhs->num_rows;
+  int cols = rhs->num_cols;
+  Matrix *result = initMatrix(rows, cols);
+  for(int i = 0; i < rows; i++) {
+    for(int j = 0 ; j < cols; j++) {
+    	for(int k = 0; k < rhs->num_rows; k++) {
+    	  set(result,i,j,get(result,i,j) + (get(result,i,k) * get(rhs,k,j)));
+    	}
+    }
+  }
+
+  return result;
+}
+
 Matrix* transpose(Matrix* input) {
   //switch rows and cols, get empty(i.e., zeroed matrix of transposed size, then fill)
   int rows = input->num_rows;
