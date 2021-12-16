@@ -4,12 +4,14 @@ int main(){
     int Matrix f;
     int Matrix a;
     int Matrix b;
+    int Matrix c;
     m = [[2,3,4],[6,4,5],[7,8,1],[9,7,8]];
     n = [[1,2,4],[3,4,5]];
     a = [[1,2,4],[3,4,5]];
     f = [[1,2,3,4],[4,5,2,3],[7,5,2,3]];
     m = m';
     b = a +. n;
+    c = a -. n;
     print_matrix(m);
     prints("==============================================");
     print_matrix(n);
@@ -17,5 +19,7 @@ int main(){
     print_matrix(f);
     prints("==============================================");
     print_matrix(b);
+    prints("==============================================");
+    print_matrix(c);
     prints("Done!");
 }

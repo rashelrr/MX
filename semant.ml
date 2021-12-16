@@ -113,7 +113,7 @@ let check (globals, functions) =
       (* function to check that all rows are the same size and raise an error if they are not *)
       let col_check list = List.map (fun v -> if List.length v != cols then raise (Failure "Matrix rows are not all the same length")) list in 
       
-      col_check l; (Matrix(Int), SMx (l, rows, cols))
+      ignore(col_check l); (Matrix(Int), SMx (l, rows, cols))
      
       (* print_int(cols); (Matrix(Int), SMx l) *)
       | Noexpr     -> (Void, SNoexpr)
@@ -143,7 +143,7 @@ let check (globals, functions) =
           let ty = match op with
             Add | Sub | Mult | Div when same && t1 = Int   -> Int
           | Add | Sub | Mult | Div when same && t1 = Float -> Float
-          | Mxadd                  when same && t1 = Matrix(Int) -> Matrix(Int)
+          | Mxadd | Mxsub          when same && t1 = Matrix(Int) -> Matrix(Int)
           | Equal | Neq            when same               -> Bool
           | Less | Leq | Greater | Geq
                      when same && (t1 = Int || t1 = Float) -> Bool

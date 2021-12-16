@@ -14,7 +14,6 @@ let translate (globals, functions) =
 
   let i32_t      = L.i32_type    context
   and i8_t       = L.i8_type     context
-  and arr_t      = L.array_type 
   and i1_t       = L.i1_type     context
   and float_t    = L.double_type context
   and string_t   = L.pointer_type (L.i8_type context)
@@ -78,6 +77,11 @@ let translate (globals, functions) =
       L.function_type matrix_t [|matrix_t; matrix_t|] in
   let mxAdd_f = 
       L.declare_function "mxAdd" mxAdd_t the_module in
+
+  let mxSub_t = 
+      L.function_type matrix_t [|matrix_t; matrix_t|] in
+  let mxSub_f = 
+      L.declare_function "mxSub" mxSub_t the_module in
 
   (* Define each function (arguments and return type) so we can 
      call it even before we've created its body *)
@@ -178,7 +182,10 @@ let translate (globals, functions) =
 	  | A.Leq     -> L.build_icmp L.Icmp.Sle e1' e2' "tmp" builder
 	  | A.Greater -> L.build_icmp L.Icmp.Sgt e1' e2' "tmp" builder
 	  | A.Geq     -> L.build_icmp L.Icmp.Sge e1' e2' "tmp" builder
-    | A.Mxadd   -> L.build_call mxAdd_f [| e1'; e2' |] "mxAdd" builder )
+    | A.Mxadd   -> L.build_call mxAdd_f [| e1'; e2' |] "mxAdd" builder 
+    | A.Mxsub   -> L.build_call mxSub_f [| e1'; e2' |] "mxSub" builder 
+    
+    )
 
 
       | SUnop(op, ((t, _) as e)) ->
@@ -187,8 +194,7 @@ let translate (globals, functions) =
 	    A.Neg when t = A.Float -> L.build_fneg e' "tmp" builder
 	  | A.Neg                  -> L.build_neg e' "tmp" builder
     | A.Transpose            -> L.build_call transpose_f [| e' |] "transpose" builder
-    | A.Not                  -> L.build_not e' "tmp" builder
-    | _ -> raise (Failure "internal error: semant should have rejected."))
+    | A.Not                  -> L.build_not e' "tmp" builder)
 
       | SCall ("print", [e]) | SCall ("printb", [e]) ->
 	  L.build_call printf_func [| int_format_str ; (expr builder e) |]

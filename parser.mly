@@ -52,7 +52,6 @@ typ:
     | STRING        { String }
     | FLOAT         { Float  }
     | INT MATRIX    { Matrix(Int) }
-    | FLOAT MATRIX  { Matrix(Float) }
     | VOID          { Void }  
     
 vdecl_list: /* nothing */ { [] }
