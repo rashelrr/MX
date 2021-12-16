@@ -93,6 +93,24 @@ void set( struct Matrix* m,int r,int c,double v){
   m->matrixAddr[idx]=v;
 }
 
+Matrix* mxAdd(Matrix* lhs, Matrix* rhs) {
+  //check dimensions
+  if (lhs->num_rows != rhs->num_rows || lhs->num_cols != rhs->num_cols) {
+    perror("Addition size mismatch.");
+  }
+  int rows = lhs->num_rows;
+  int cols= lhs->num_cols;
+  Matrix *result = initMatrix(rows, cols);
+  for(int i=0; i < rows; i++) {
+    for(int j=0; j < cols; j++) {
+        double sum = get(lhs,i,j)+get(rhs,i,j);
+        set(result,i,j,sum);
+    }
+  }
+
+  return result;
+}
+
 Matrix* transpose(Matrix* input) {
   //switch rows and cols, get empty(i.e., zeroed matrix of transposed size, then fill)
   int rows = input->num_rows;

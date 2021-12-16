@@ -44,6 +44,7 @@ let string_of_op = function
   | Geq -> ">="
   | And -> "&&"
   | Or -> "||"
+  | Mxadd -> "+."
 
 let string_of_uop = function
     Neg -> "-"

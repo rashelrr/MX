@@ -74,6 +74,11 @@ let translate (globals, functions) =
   let transpose_f = 
       L.declare_function "transpose" transpose_t the_module in
 
+  let mxAdd_t = 
+      L.function_type matrix_t [|matrix_t; matrix_t|] in
+  let mxAdd_f = 
+      L.declare_function "mxAdd" mxAdd_t the_module in
+
   (* Define each function (arguments and return type) so we can 
      call it even before we've created its body *)
   let function_decls : (L.llvalue * sfunc_decl) StringMap.t =
@@ -138,6 +143,7 @@ let translate (globals, functions) =
 
       | SAssign (s, e) -> let e' = expr builder e in
                           ignore(L.build_store e' (lookup s) builder); e'
+      
       | SBinop ((A.Float,_ ) as e1, op, e2) ->
 	  let e1' = expr builder e1
 	  and e2' = expr builder e2 in
@@ -155,23 +161,26 @@ let translate (globals, functions) =
 	  | A.And | A.Or ->
 	      raise (Failure "internal error: semant should have rejected and/or on float")
 	  ) e1' e2' "tmp" builder
+
       | SBinop (e1, op, e2) ->
 	  let e1' = expr builder e1
 	  and e2' = expr builder e2 in
 	  (match op with
-	    A.Add     -> L.build_add
-	  | A.Sub     -> L.build_sub
-	  | A.Mult    -> L.build_mul
-          | A.Div     -> L.build_sdiv
-	  | A.And     -> L.build_and
-	  | A.Or      -> L.build_or
-	  | A.Equal   -> L.build_icmp L.Icmp.Eq
-	  | A.Neq     -> L.build_icmp L.Icmp.Ne
-	  | A.Less    -> L.build_icmp L.Icmp.Slt
-	  | A.Leq     -> L.build_icmp L.Icmp.Sle
-	  | A.Greater -> L.build_icmp L.Icmp.Sgt
-	  | A.Geq     -> L.build_icmp L.Icmp.Sge
-	  ) e1' e2' "tmp" builder
+	    A.Add     -> L.build_add e1' e2' "tmp" builder
+	  | A.Sub     -> L.build_sub e1' e2' "tmp" builder
+	  | A.Mult    -> L.build_mul e1' e2' "tmp" builder
+    | A.Div     -> L.build_sdiv e1' e2' "tmp" builder
+	  | A.And     -> L.build_and e1' e2' "tmp" builder
+	  | A.Or      -> L.build_or e1' e2' "tmp" builder
+	  | A.Equal   -> L.build_icmp L.Icmp.Eq e1' e2' "tmp" builder
+	  | A.Neq     -> L.build_icmp L.Icmp.Ne e1' e2' "tmp" builder
+	  | A.Less    -> L.build_icmp L.Icmp.Slt e1' e2' "tmp" builder
+	  | A.Leq     -> L.build_icmp L.Icmp.Sle e1' e2' "tmp" builder
+	  | A.Greater -> L.build_icmp L.Icmp.Sgt e1' e2' "tmp" builder
+	  | A.Geq     -> L.build_icmp L.Icmp.Sge e1' e2' "tmp" builder
+    | A.Mxadd   -> L.build_call mxAdd_f [| e1'; e2' |] "mxAdd" builder )
+
+
       | SUnop(op, ((t, _) as e)) ->
           let e' = expr builder e in
 	  (match op with
@@ -195,9 +204,11 @@ let translate (globals, functions) =
       | SCall ("printf", [e]) -> 
 	  L.build_call printf_func [| float_format_str ; (expr builder e) |]
 	    "printf" builder
+
       | SCall ("prints", [e]) ->                                                  
       L.build_call printf_func [| str_format_str ; (expr builder e) |]
         "printf" builder
+
       | SCall (f, args) ->
          let (fdef, fdecl) = StringMap.find f function_decls in
 	 let llargs = List.rev (List.map (expr builder) (List.rev args)) in
