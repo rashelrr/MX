@@ -141,7 +141,7 @@ Matrix *mxTimes(Matrix *lhs, Matrix *rhs)
   for(int i = 0; i < rows; i++) {
     for(int j = 0 ; j < cols; j++) {
     	for(int k = 0; k < rhs->num_rows; k++) {
-    	  set(result,i,j,get(result,i,j) + (get(result,i,k) * get(rhs,k,j)));
+    	  set(result,i,j,get(result,i,j) + (get(lhs,i,k) * get(rhs,k,j)));
     	}
     }
   }
