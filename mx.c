@@ -103,7 +103,7 @@ Matrix* mxAdd(Matrix* lhs, Matrix* rhs) {
   Matrix *result = initMatrix(rows, cols);
   for(int i=0; i < rows; i++) {
     for(int j=0; j < cols; j++) {
-        double sum = get(lhs,i,j)+get(rhs,i,j);
+        int sum = get(lhs,i,j)+get(rhs,i,j);
         set(result,i,j,sum);
     }
   }
@@ -122,14 +122,14 @@ Matrix *mxSub(Matrix *lhs, Matrix *rhs)
   Matrix *result = initMatrix(rows, cols);
   for(int i=0; i < rows; i++) {
     for(int j = 0; j < cols; j++) {
-        double res = get(lhs,i,j)-get(rhs,i,j);
-        set(result,i,j,res);
+        int result = get(lhs,i,j)-get(rhs,i,j);
+        set(result,i,j,result);
     }
   }
   return result;
 }
 
-Matrix *mxMult(Matrix *lhs, Matrix *rhs)
+Matrix *mxTimes(Matrix *lhs, Matrix *rhs)
 {
   //check dimensions
   if (lhs->num_cols != rhs->num_rows) {
@@ -146,6 +146,41 @@ Matrix *mxMult(Matrix *lhs, Matrix *rhs)
     }
   }
 
+  return result;
+}
+
+Matrix *mxScale(Matrix *input, int scalar)
+{
+  int rows = input->num_rows;
+  int cols = input->num_cols;
+  Matrix *result = initMatrix(rows, cols);
+  for(int i = 0; i < rows; i++) {
+    for(int j = 0 ; j < cols; j++) {  
+    	int product = scalar * get(input,i,j);
+    	set(result, i, j, product);
+    }
+  }
+  return result;
+}
+
+Matrix *identity(Matrix *input)
+{
+  //check dimensions
+  if (input->num_cols != input->num_rows) {
+    perror("Matrix size mismatch.");
+  }
+  int rows = input->num_rows;
+  int cols = input->num_cols;
+  Matrix *result = initMatrix(rows, cols);
+  for(int i = 0; i < rows; i++) {
+    for(int j = 0 ; j < cols; j++) {
+      if(rows == cols) {
+        set(result, i, j, 1);
+      } else {
+        set(result, i, j, 0);
+      }
+    }
+  }
   return result;
 }
 
@@ -170,9 +205,11 @@ void display(Matrix* input) {
     for(int i = 0; i<row; i++) {
         for(int j=0; j<col; j++) {
           if (j == 0) {
-            printf("%i", get(input,i,j));
+            printf("[ %i,", get(input,i,j));
+          } else if (j == col - 1) {
+            printf(" %i ]", get(input,i,j));
           } else {
-          printf(" %i", get(input,i,j));
+          printf(" %i,", get(input,i,j));
           }
         }
         printf("\n");
