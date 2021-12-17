@@ -138,7 +138,6 @@ Matrix *mxMult(Matrix *lhs, Matrix *rhs)
     perror("Multiplication size mismatch.");
   }
 
-  printf("LMAOOOO");
   int rows = lhs->num_rows;
   int cols = rhs->num_cols;
   Matrix *result = initMatrix(rows, cols);
@@ -227,7 +226,6 @@ Matrix* transpose(Matrix* input) {
   int rows = input->num_rows;
   int cols = input->num_cols;
 
-  printf("NOW PRINTING:\nROWS:%d\nCOLS:%d", rows, cols);
   Matrix *result = initMatrix(cols, rows);
   for(int i=0; i<rows; i++) {
     for(int j=0; j<cols; j++) {
