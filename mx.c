@@ -130,7 +130,7 @@ Matrix *mxSub(Matrix *lhs, Matrix *rhs)
   return result;
 }
 
-Matrix *mxTimes(Matrix *lhs, Matrix *rhs)
+Matrix *mxMult(Matrix *lhs, Matrix *rhs)
 {
   //check dimensions
   if (lhs->num_cols != rhs->num_rows) {
