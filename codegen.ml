@@ -93,6 +93,11 @@ let translate (globals, functions) =
   let identity_f = 
       L.declare_function "identity" identity_t the_module in
 
+  let mxScale_t = 
+      L.function_type matrix_t [|matrix_t;i32_t|] in
+  let mxScale_f = 
+      L.declare_function "mxScale" mxScale_t the_module in
+
   (* Define each function (arguments and return type) so we can 
      call it even before we've created its body *)
   let function_decls : (L.llvalue * sfunc_decl) StringMap.t =
@@ -195,6 +200,7 @@ let translate (globals, functions) =
     | A.Mxadd   -> L.build_call mxAdd_f [| e1'; e2' |] "mxAdd" builder 
     | A.Mxsub   -> L.build_call mxSub_f [| e1'; e2' |] "mxSub" builder
     | A.Mxtimes -> L.build_call mxMult_f [| e1'; e2' |] "mxMult" builder
+    | A.Mxscale -> L.build_call mxScale_f [| e1'; e2' |] "mxScale" builder
     
     )
 
