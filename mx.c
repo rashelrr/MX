@@ -198,6 +198,29 @@ Matrix *rotation2D(double theta)
   return result;
 }
 
+Matrix *rotation3D(double theta)
+{
+  //translate angle into radians
+  const double pi = 4. * atan(1.);
+  double rads = (theta * pi) / 180;
+  //create rotation matrix
+  Matrix *result = initMatrix(3, 3);
+  set(result, 0, 0, cos(rads));
+  set(result, 0, 1, -sin(rads));
+  set(result, 1, 0, sin(rads));
+  set(result, 1, 1, cos(rads));
+  for(int i = 2; i < 3; i++) {
+    for(int j = 2; j < 3; j++ {
+      if(i == j) {
+        set(result, i, j, 1);
+      } else {
+        set(result, i, j, 0);
+      }
+    }
+  }
+  return result;
+}
+
 Matrix* transpose(Matrix* input) {
   //switch rows and cols, get empty(i.e., zeroed matrix of transposed size, then fill)
   int rows = input->num_rows;
