@@ -164,12 +164,10 @@ Matrix *mxScale(Matrix *input, int scalar)
   return result;
 }
 
-Matrix *identity(int rows, int cols)
+Matrix *identity(int dim)
 {
-  //check dimensions
-  if (rows != cols) {
-    perror("Matrix size mismatch.");
-  }
+  int rows = dim;
+  int cols = dim;
   Matrix *id = initMatrix(rows, cols);
   for(int i = 0; i < rows; i++) {
     for(int j = 0 ; j < cols; j++) {
