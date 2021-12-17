@@ -236,6 +236,7 @@ Matrix* transpose(Matrix* input) {
 }
 
 void display(Matrix* input) {
+    printf("\n\n");
     int row = input->num_rows;
     int col = input->num_cols;
     for(int i = 0; i<row; i++) {

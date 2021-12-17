@@ -98,10 +98,12 @@ let translate (globals, functions) =
   let mxScale_f = 
       L.declare_function "mxScale" mxScale_t the_module in
 
+  (* Dummy Function to test that built in functions can take multiple arguments *)
   let twoFunc_t = 
       L.function_type matrix_t [|i32_t;i32_t|] in
   let twoFunc_f = 
       L.declare_function "twoFunc" twoFunc_t the_module in
+      
 
   (* Define each function (arguments and return type) so we can 
      call it even before we've created its body *)
