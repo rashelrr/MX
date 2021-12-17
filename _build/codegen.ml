@@ -103,6 +103,11 @@ let translate (globals, functions) =
       L.function_type matrix_t [|i32_t;i32_t|] in
   let twoFunc_f = 
       L.declare_function "twoFunc" twoFunc_t the_module in
+
+  let transformation_t = 
+      L.function_type matrix_t [|matrix_t;i32_t|] in
+  let transformation_f = 
+      L.declare_function "transformation" transformation_t the_module in
       
 
   (* Define each function (arguments and return type) so we can 
@@ -240,6 +245,9 @@ let translate (globals, functions) =
 
       | SCall ("twoFunc", [e1; e2]) ->                                                  
       L.build_call twoFunc_f [| (expr builder e1); (expr builder e2) |] "twoFunc" builder
+
+      | SCall ("transformation", [e1; e2]) ->                                                  
+      L.build_call transformation_f [| (expr builder e1); (expr builder e2) |] "transformation" builder
 
       | SCall ("identity", [e]) ->                                                  
       L.build_call identity_f [| (expr builder e) |] "identity" builder

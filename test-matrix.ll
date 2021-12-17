@@ -39,6 +39,8 @@ declare %struct.Matrix* @mxScale(%struct.Matrix*, i32)
 
 declare %struct.Matrix* @twoFunc(i32, i32)
 
+declare %struct.Matrix* @transformation(%struct.Matrix*, i32)
+
 define i32 @main() {
 entry:
   %m = alloca %struct.Matrix*
