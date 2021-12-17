@@ -52,6 +52,7 @@ let check (globals, functions) =
     ("prints", [String], Void);
     ("printbig", [Int], Void);
     ("transpose", [Matrix(Int)], Matrix(Int));
+    ("transformation", [Matrix(Int); Int], Matrix(Int));
     ("identity", [Int], Matrix(Int));
     ("twoFunc", [Int; Int], Void);
     ("print_matrix", [Matrix(Int)], Void)
