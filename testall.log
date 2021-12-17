@@ -1,0 +1,30 @@
+/usr/bin/lli
+
+###### Testing test-gcd
+./mx.native tests/test-gcd.mx > test-gcd.ll
+llc -relocation-model=pic test-gcd.ll > test-gcd.s
+cc -o test-gcd.exe test-gcd.s mx.c -lm
+./test-gcd.exe
+diff -b test-gcd.out tests/test-gcd.out > test-gcd.diff
+###### SUCCESS
+
+###### Testing test-hello
+./mx.native tests/test-hello.mx > test-hello.ll
+llc -relocation-model=pic test-hello.ll > test-hello.s
+cc -o test-hello.exe test-hello.s mx.c -lm
+./test-hello.exe
+diff -b test-hello.out tests/test-hello.out > test-hello.diff
+###### SUCCESS
+
+###### Testing test-matrix
+./mx.native tests/test-matrix.mx > test-matrix.ll
+llc -relocation-model=pic test-matrix.ll > test-matrix.s
+cc -o test-matrix.exe test-matrix.s mx.c -lm
+./test-matrix.exe
+diff -b test-matrix.out tests/test-matrix.out > test-matrix.diff
+###### SUCCESS
+
+###### Testing fail-assign
+./mx.native < tests/fail-assign.mx 2> fail-assign.err >> testall.log
+diff -b fail-assign.err tests/fail-assign.err > fail-assign.diff
+###### SUCCESS

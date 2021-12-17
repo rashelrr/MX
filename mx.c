@@ -253,3 +253,7 @@ void display(Matrix* input) {
         printf("\n");
     }
 }
+
+void twoFunc(int a, int b){
+  printf("%d\n%d\n",a,b);
+}
