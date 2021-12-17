@@ -264,6 +264,8 @@ Matrix *transformation(Matrix *input, int num) {
   }
   return result;
 }
+return 0;
+}
 
 void display(Matrix *input) {
   int row = input->num_rows;
