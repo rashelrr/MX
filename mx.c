@@ -171,10 +171,6 @@ Matrix *identity(int dim)
 {
   int rows = dim;
   int cols = dim;
-  //check dimensions
-  if (rows != cols) {
-    perror("Matrix size mismatch.");
-  }
   Matrix *id = initMatrix(rows, cols);
   for(int i = 0; i < rows; i++) {
     for(int j = 0 ; j < cols; j++) {
