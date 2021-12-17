@@ -167,8 +167,10 @@ Matrix *mxScale(Matrix *input, int scalar)
   return result;
 }
 
-Matrix *identity(int rows, int cols)
+Matrix *identity(int dim)
 {
+  int rows = dim;
+  int cols = dim;
   //check dimensions
   if (rows != cols) {
     perror("Matrix size mismatch.");
@@ -176,7 +178,7 @@ Matrix *identity(int rows, int cols)
   Matrix *id = initMatrix(rows, cols);
   for(int i = 0; i < rows; i++) {
     for(int j = 0 ; j < cols; j++) {
-      if(rows == cols) {
+      if(i == j) {
         set(id, i, j, 1);
       } else {
         set(id, i, j, 0);
@@ -213,7 +215,7 @@ Matrix *rotation3D(double theta)
   set(result, 1, 0, sin(rads));
   set(result, 1, 1, cos(rads));
   for(int i = 2; i < 3; i++) {
-    for(int j = 2; j < 3; j++ {
+    for(int j = 2; j < 3; j++) {
       if(i == j) {
         set(result, i, j, 1);
       } else {
@@ -255,4 +257,3 @@ void display(Matrix* input) {
         printf("\n");
     }
 }
-

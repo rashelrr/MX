@@ -45,6 +45,7 @@ let check (globals, functions) =
     ("prints", String, Void);
     ("printbig", Int, Void);
     ("transpose", Matrix(Int), Matrix(Int));
+    ("identity", Int, Matrix(Int));
     ("print_matrix", Matrix(Int), Void)
      ]
   in

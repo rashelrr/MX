@@ -89,7 +89,7 @@ let translate (globals, functions) =
       L.declare_function "mxMult" mxMult_t the_module in
 
   let identity_t = 
-      L.function_type matrix_t [|matrix_t|] in
+      L.function_type matrix_t [|i32_t|] in
   let identity_f = 
       L.declare_function "identity" identity_t the_module in
 
@@ -225,6 +225,9 @@ let translate (globals, functions) =
       | SCall ("prints", [e]) ->                                                  
       L.build_call printf_func [| str_format_str ; (expr builder e) |]
         "printf" builder
+
+      | SCall ("identity", [e]) ->                                                  
+      L.build_call identity_f [| (expr builder e) |] "identity" builder
 
       | SCall (f, args) ->
          let (fdef, fdecl) = StringMap.find f function_decls in
