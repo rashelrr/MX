@@ -1,3 +1,9 @@
+# "make test" Compiles everything and runs the regression tests
+
+.PHONY: test
+test: all testall.sh
+	./testall.sh
+
 # "make all" builds the executable as well as the "printbig" library designed
 # to test linking external code
 
