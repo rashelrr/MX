@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 int debug = 0;
 
@@ -166,18 +167,54 @@ Matrix *mxScale(Matrix *input, int scalar)
   return result;
 }
 
-Matrix *identity(Matrix *input)
+Matrix *identity(int rows, int cols)
 {
   //check dimensions
-  if (input->num_cols != input->num_rows) {
+  if (rows != cols) {
     perror("Matrix size mismatch.");
   }
-  int rows = input->num_rows;
-  int cols = input->num_cols;
-  Matrix *result = initMatrix(rows, cols);
+  Matrix *id = initMatrix(rows, cols);
   for(int i = 0; i < rows; i++) {
     for(int j = 0 ; j < cols; j++) {
       if(rows == cols) {
+        set(id, i, j, 1);
+      } else {
+        set(id, i, j, 0);
+      }
+    }
+  }
+  return id;
+}
+
+Matrix *rotation2D(double theta)
+{
+  //translate angle into radians
+  const double pi = 4. * atan(1.);
+  double rads = (theta * pi) / 180;
+  //create rotation matrix
+  Matrix *result = initMatrix(2, 2);
+  set(result, 0, 0, cos(rads));
+  set(result, 0, 1, -sin(rads));
+  set(result, 1, 0, sin(rads));
+  set(result, 1, 1, cos(rads));
+  
+  return result;
+}
+
+Matrix *rotation3D(double theta)
+{
+  //translate angle into radians
+  const double pi = 4. * atan(1.);
+  double rads = (theta * pi) / 180;
+  //create rotation matrix
+  Matrix *result = initMatrix(3, 3);
+  set(result, 0, 0, cos(rads));
+  set(result, 0, 1, -sin(rads));
+  set(result, 1, 0, sin(rads));
+  set(result, 1, 1, cos(rads));
+  for(int i = 2; i < 3; i++) {
+    for(int j = 2; j < 3; j++ {
+      if(i == j) {
         set(result, i, j, 1);
       } else {
         set(result, i, j, 0);
