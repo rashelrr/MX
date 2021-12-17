@@ -35,5 +35,6 @@ int main(){
     print_matrix(g);
     prints("==============================================");
     print_matrix(h);
+    twoFunc(1, 2);
     prints("Done!");
 }
