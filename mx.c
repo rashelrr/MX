@@ -171,7 +171,7 @@ Matrix *identity(int dim)
   Matrix *id = initMatrix(rows, cols);
   for(int i = 0; i < rows; i++) {
     for(int j = 0 ; j < cols; j++) {
-      if(rows == cols) {
+      if(i == j) {
         set(id, i, j, 1);
       } else {
         set(id, i, j, 0);
