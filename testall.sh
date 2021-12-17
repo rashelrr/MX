@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Authored by Andrew Gorovoy, Annie Wang.
+# Authored by Mauricio Guerrero, Aaron Jackson
 # Citation: based on MicroC test script. 
 
 # Regression testing script for MX
@@ -80,7 +80,7 @@ Check() {
     generatedfiles="$generatedfiles ${basename}.ll ${basename}.s ${basename}.exe ${basename}.out" &&
     Run "$MX" "$1" ">" "${basename}.ll" &&
     Run "$LLC" "-relocation-model=pic" "${basename}.ll" ">" "${basename}.s" &&
-    Run "$CC" "-o" "${basename}.exe" "${basename}.s" "mx.c" &&
+    Run "$CC" "-o" "${basename}.exe" "${basename}.s" "mx.c" "-lm" &&
     Run "./${basename}.exe" > "${basename}.out" &&
     Compare ${basename}.out ${reffile}.out ${basename}.diff
     # Report the status and clean up the generated files
