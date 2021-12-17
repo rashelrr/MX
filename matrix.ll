@@ -41,6 +41,7 @@ entry:
   %c = alloca %struct.Matrix*
   %d = alloca %struct.Matrix*
   %e = alloca %struct.Matrix*
+  %g = alloca %struct.Matrix*
   %init_matrix = call %struct.Matrix* @initMatrix(i32 4, i32 3)
   %store_matrix = call %struct.Matrix* @store(%struct.Matrix* %init_matrix, i32 2)
   %store_matrix1 = call %struct.Matrix* @store(%struct.Matrix* %init_matrix, i32 3)

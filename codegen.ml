@@ -88,6 +88,11 @@ let translate (globals, functions) =
   let mxMult_f = 
       L.declare_function "mxMult" mxMult_t the_module in
 
+  let identity_t = 
+      L.function_type matrix_t [|matrix_t|] in
+  let identity_f = 
+      L.declare_function "identity" identity_t the_module in
+
   (* Define each function (arguments and return type) so we can 
      call it even before we've created its body *)
   let function_decls : (L.llvalue * sfunc_decl) StringMap.t =

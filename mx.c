@@ -123,14 +123,14 @@ Matrix *mxSub(Matrix *lhs, Matrix *rhs)
   Matrix *result = initMatrix(rows, cols);
   for(int i=0; i < rows; i++) {
     for(int j = 0; j < cols; j++) {
-        int result = get(lhs,i,j)-get(rhs,i,j);
-        set(result,i,j,result);
+        int res = get(lhs,i,j)-get(rhs,i,j);
+        set(result,i,j,res);
     }
   }
   return result;
 }
 
-Matrix *mxTimes(Matrix *lhs, Matrix *rhs)
+Matrix *mxMult(Matrix *lhs, Matrix *rhs)
 {
   //check dimensions
   if (lhs->num_cols != rhs->num_rows) {
@@ -218,3 +218,4 @@ void display(Matrix* input) {
         printf("\n");
     }
 }
+
