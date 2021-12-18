@@ -1,14 +1,18 @@
 int main(){
-    int Matrix m;
-    int Matrix n;
-    int Matrix f;
-    int Matrix a;
-    int Matrix b;
-    int Matrix c;
-    int Matrix d;
-    int Matrix e;
-    int Matrix g;
-    int Matrix h;
+    Matrix m;
+    Matrix n;
+    Matrix f;
+    Matrix a;
+    Matrix b;
+    Matrix c;
+    Matrix d;
+    Matrix e;
+    Matrix g;
+    Matrix h;
+    Matrix i;
+    Matrix j;
+    Matrix k;
+    Matrix l;
     m = [[2,3,4],[6,4,5],[7,8,1],[9,7,8]];
     n = [[1,2,4],[3,4,5]];
     a = [[1,2,4],[3,4,5]];
@@ -20,6 +24,7 @@ int main(){
     d = e *. n;
     g = identity(3);
     h = g**.4;
+    i = transformation(e, 2);
     print_matrix(m);
     prints("==============================================");
     print_matrix(n);
@@ -35,6 +40,8 @@ int main(){
     print_matrix(g);
     prints("==============================================");
     print_matrix(h);
-    twoFunc(1, 2);
+    prints("==============================================");
+    print_matrix(i);
+    prints("==============================================");
     prints("Done!");
 }

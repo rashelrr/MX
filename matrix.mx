@@ -1,15 +1,18 @@
 int main(){
-    int Matrix m;
-    int Matrix n;
-    int Matrix f;
-    int Matrix a;
-    int Matrix b;
-    int Matrix c;
-    int Matrix d;
-    int Matrix e;
-    int Matrix g;
-    int Matrix h;
-    int Matrix i;
+    Matrix m;
+    Matrix n;
+    Matrix f;
+    Matrix a;
+    Matrix b;
+    Matrix c;
+    Matrix d;
+    Matrix e;
+    Matrix g;
+    Matrix h;
+    Matrix i;
+    Matrix j;
+    Matrix k;
+    Matrix l;
     m = [[2,3,4],[6,4,5],[7,8,1],[9,7,8]];
     n = [[1,2,4],[3,4,5]];
     a = [[1,2,4],[3,4,5]];
@@ -21,7 +24,7 @@ int main(){
     d = e *. n;
     g = identity(3);
     h = g**.4;
-    i = transformation(f, 2);
+    i = transformation(e, 2);
     print_matrix(m);
     prints("==============================================");
     print_matrix(n);
@@ -39,5 +42,21 @@ int main(){
     print_matrix(h);
     prints("==============================================");
     print_matrix(i);
+    prints("==============================================");
     prints("Done!");
 }
+/*
+int gcd(int a, int b) {
+while (a != b) {
+if (a > b) a = a - b;
+else b = b - a;
+}
+return a;
+}
+int main()
+{
+print(gcd(2,14));
+print(gcd(3,15));
+print(gcd(99,121));
+return 0;
+} */
