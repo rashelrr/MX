@@ -198,6 +198,7 @@ Matrix *transformation(Matrix *input, int num) {
   //check dimensions
   if(input->num_rows != 2) {
     perror("Invalid matrix size for 2D transformations");
+  }
   int rows = input->num_rows;
   int cols = input->num_cols;
   Matrix *result = initMatrix(rows, cols);
@@ -263,8 +264,6 @@ Matrix *transformation(Matrix *input, int num) {
       printf("Invalid input.");
   }
   return result;
-}
-return 0;
 }
 
 void display(Matrix *input) {
