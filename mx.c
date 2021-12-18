@@ -97,7 +97,7 @@ void set(struct Matrix *m, int r, int c, double v){
 Matrix *mxAdd(Matrix *lhs, Matrix *rhs) {
   //check dimensions
   if (lhs->num_rows != rhs->num_rows || lhs->num_cols != rhs->num_cols) {
-    perror("Addition size mismatch.");
+    die("Addition size mismatch.");
   }
   int rows = lhs->num_rows;
   int cols= lhs->num_cols;
@@ -115,7 +115,7 @@ Matrix *mxSub(Matrix *lhs, Matrix *rhs)
 {
   //check dimensions
   if (lhs->num_rows != rhs->num_rows || lhs->num_cols != rhs->num_cols) {
-    perror("Subtraction size mismatch.");
+    die("Subtraction size mismatch.");
   }
   int rows = lhs->num_rows;
   int cols = lhs->num_cols;
@@ -133,7 +133,7 @@ Matrix *mxMult(Matrix *lhs, Matrix *rhs)
 {
   //check dimensions
   if (lhs->num_cols != rhs->num_rows) {
-    perror("Multiplication size mismatch.");
+    die("Multiplication size mismatch.");
   }
 
   int rows = lhs->num_rows;
@@ -197,7 +197,7 @@ Matrix *transpose(Matrix *input) {
 Matrix *transformation(Matrix *input, int num) {
   //check dimensions
   if(input->num_rows != 2) {
-    perror("Invalid matrix size for 2D transformations");
+    die("Invalid matrix size for 2D transformations");
   }
   int rows = input->num_rows;
   int cols = input->num_cols;
