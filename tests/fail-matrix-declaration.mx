@@ -1,0 +1,4 @@
+int main() {
+    Matrix m;
+    m = [[2,2],[2,2]; /* parsing error */
+}

@@ -1,0 +1,10 @@
+int main() {
+    Matrix m;
+    String s;
+    Matrix sum;
+
+    m = [[6,7,8],[9,4,5],[5,4,4]];
+    s = "pineapples";
+
+    sum = m +. s; /* Fail: add a matrix and string */
+}

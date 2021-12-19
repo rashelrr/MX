@@ -1,0 +1,10 @@
+int main() {
+    Matrix m;
+    int x;
+    Matrix sum;
+
+    m = [[9,4],[1,5]];
+    x = 45;
+
+    sum = m +. x; /* Fail: add a matrix and int */
+}
