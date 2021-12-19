@@ -94,6 +94,16 @@ void set(struct Matrix *m, int r, int c, double v){
   m->matrixAddr[idx]=v;
 }
 
+int numCols(Matrix *input) {
+  int cols = input->num_cols
+  return cols;
+}
+
+int numRows(Matrix *input) {
+  int rows = input->num_rows;
+  return rows;
+}
+
 Matrix *mxAdd(Matrix *lhs, Matrix *rhs) {
   //check dimensions
   if (lhs->num_rows != rhs->num_rows || lhs->num_cols != rhs->num_cols) {
