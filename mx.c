@@ -95,7 +95,7 @@ void set(struct Matrix *m, int r, int c, double v){
 }
 
 int numCols(Matrix *input) {
-  int cols = input->num_cols
+  int cols = input->num_cols;
   return cols;
 }
 
