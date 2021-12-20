@@ -4,7 +4,7 @@
 %token PLUS MINUS TIMES DIVIDE ASSIGN EQ PLUSASSIGN MINUSASSIGN TIMESASSIGN
 %token IF ELIF ELSE WHILE FOR NOT NOELSE
 %token INT BOOL FLOAT STRING CONTINUE BREAK RETURN MATRIX VOID NULL
-%token NEQ LT GT LEQ GEQ AND OR 
+%token NEQ LT GT LEQ GEQ AND OR INCR DECR
 %token MXPLUS MXMINUS MXMX MXSCALE 
 %token <int> LITERAL
 %token <string> ID FLIT
@@ -21,7 +21,7 @@
 %left LT GT LEQ GEQ
 %left PLUS MINUS MXPLUS MXMINUS
 %left TIMES DIVIDE MXMX MXSCALE
-%right NOT
+%right NOT INCR DECR
 %left TRANSPOSE
 
 %start program
@@ -101,7 +101,9 @@ expr:
     | expr AND expr              { Binop($1, And, $3) }
     | expr OR expr               { Binop($1, Or, $3) }
     | MINUS expr %prec NOT       { Unop(Neg, $2) }      /*   Ask TA about this */
-    | NOT expr                   { Unop(Not, $2) }        
+    | NOT expr                   { Unop(Not, $2) }
+    | expr INCR                  { Unop(Increment, $1) }  
+    | expr DECR                  { Unop(Decrement, $1) }        
     | ID ASSIGN expr             { Assign($1, $3) }
     | ID PLUSASSIGN expr         { Plusassign($1, $3) }
     | ID MINUSASSIGN expr        { Minusassign($1, $3) }
