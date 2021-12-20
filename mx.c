@@ -80,7 +80,7 @@ void set(struct Matrix *m, int r, int c, double v){
     die("");
   }
   int idx = c + (r * (m->num_cols));
-  m->matrixAddr[idx]=v;
+  m->matrixAddr[idx] = v;
 }
 
 int numCols(Matrix *input) {
@@ -110,8 +110,7 @@ Matrix *mxAdd(Matrix *lhs, Matrix *rhs) {
   return result;
 }
 
-Matrix *mxSub(Matrix *lhs, Matrix *rhs) 
-{
+Matrix *mxSub(Matrix *lhs, Matrix *rhs) {
   //check dimensions
   if (lhs->num_rows != rhs->num_rows || lhs->num_cols != rhs->num_cols) {
     die("Subtraction size mismatch.");
@@ -128,8 +127,7 @@ Matrix *mxSub(Matrix *lhs, Matrix *rhs)
   return result;
 }
 
-Matrix *mxMult(Matrix *lhs, Matrix *rhs)
-{
+Matrix *mxMult(Matrix *lhs, Matrix *rhs) {
   //check dimensions
   if (lhs->num_cols != rhs->num_rows) {
     die("Multiplication size mismatch.");
@@ -141,15 +139,14 @@ Matrix *mxMult(Matrix *lhs, Matrix *rhs)
   for(int i = 0; i < rows; i++) {
     for(int j = 0 ; j < cols; j++) {
     	for(int k = 0; k < rhs->num_rows; k++) {
-    	  set(result,i,j,get(result,i,j) + (get(lhs,i,k) * get(rhs,k,j)));
+    	  set(result, i, j, get(result, i, j) + (get(lhs, i, k) * get(rhs, k, j)));
     	}
     }
   }
   return result;
 }
 
-Matrix *mxScale(Matrix *input, int scalar)
-{
+Matrix *mxScale(Matrix *input, int scalar) {
   int rows = input->num_rows;
   int cols = input->num_cols;
   Matrix *result = initMatrix(rows, cols);
@@ -162,8 +159,8 @@ Matrix *mxScale(Matrix *input, int scalar)
   return result;
 }
 
-Matrix *identity(int dim)
-{
+Matrix *identity(int dim) {
+  //create an NxN identity matirx
   int rows = dim;
   int cols = dim;
   Matrix *result = initMatrix(rows, cols);
@@ -204,7 +201,7 @@ Matrix *transformation(Matrix *input, int num) {
   Matrix *tmp = initMatrix(2, 2);
   switch(num) {
     case 1 :
-      printf("Reflection in line y = x:\n");
+      //Reflection in line y = x
       set(tmp, 0, 0, 0);
       set(tmp, 0, 1, 1);
       set(tmp, 1, 0, 1);
@@ -212,7 +209,7 @@ Matrix *transformation(Matrix *input, int num) {
       result = mxMult(tmp, input);      
       break;
     case 2 :
-      printf("Reflection in line y = -x:\n");
+      //Reflection in line y = -x
       set(tmp, 0, 0, 0);
       set(tmp, 0, 1, -1);
       set(tmp, 1, 0, -1);
@@ -220,7 +217,7 @@ Matrix *transformation(Matrix *input, int num) {
       result = mxMult(tmp, input);
       break;
     case 3 :
-      printf("Reflection in x-axis:\n");
+      //Reflection in x-axis
       set(tmp, 0, 0, 1);
       set(tmp, 0, 1, 0);
       set(tmp, 1, 0, 0);
@@ -228,7 +225,7 @@ Matrix *transformation(Matrix *input, int num) {
       result = mxMult(tmp, input);
       break;
     case 4 :
-      printf("Reflection in y-axis:\n");
+      //Reflection in y-axis
       set(tmp, 0, 0, -1);
       set(tmp, 0, 1, 0);
       set(tmp, 1, 0, 0);
@@ -236,7 +233,7 @@ Matrix *transformation(Matrix *input, int num) {
       result = mxMult(tmp, input);
       break;
     case 5 :
-      printf("Rotation 90° clockwise:\n");
+      //Rotation 90° clockwise
       set(tmp, 0, 0, 0);
       set(tmp, 0, 1, 1);
       set(tmp, 1, 0, -1);
@@ -244,7 +241,7 @@ Matrix *transformation(Matrix *input, int num) {
       result = mxMult(tmp, input);
       break;
     case 6 :
-      printf("Rotation 180°:\n");
+      //Rotation 180°
       set(tmp, 0, 0, -1);
       set(tmp, 0, 1, 0);
       set(tmp, 1, 0, 0);
@@ -252,7 +249,7 @@ Matrix *transformation(Matrix *input, int num) {
       result = mxMult(tmp, input);
       break;
     case 7 :
-      printf("Rotation 90° anticlockwise:\n");
+      //Rotation 90° anticlockwise
       set(tmp, 0, 0, 0);
       set(tmp, 0, 1, -1);
       set(tmp, 1, 0, 1);
@@ -266,11 +263,11 @@ Matrix *transformation(Matrix *input, int num) {
 }
 
 void display(Matrix *input) {
-  int row = input->num_rows;
-  int col = input->num_cols;
+  int rows = input->num_rows;
+  int cols = input->num_cols;
   printf("\n");
-  for(int i = 0; i < row; i++) {
-    for(int j = 0; j < col; j++) {
+  for(int i = 0; i < rows; i++) {
+    for(int j = 0; j < cols; j++) {
       if (j == 0) {
         printf("[ %i,", get(input, i, j));
       } else if (j == col - 1) {
