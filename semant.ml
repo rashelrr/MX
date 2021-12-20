@@ -159,10 +159,6 @@ let check (globals, functions) =
           let ty = match op with
             Neg when t = Int || t = Float -> t
           | Not when t = Bool -> Bool
-          | Increment when t = Int -> Int
-          | Increment when t = Float -> Float
-          | Decrement when t = Int -> Int
-          | Decrement when t = Float -> Float
           | Transpose when t = Matrix(Int) -> t
           | _ -> raise (Failure ("illegal unary operator " ^ 
                                  string_of_uop op ^ string_of_typ t ^

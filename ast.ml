@@ -1,7 +1,7 @@
 type op = Add | Sub | Mult | Div | Equal | Neq | Less | Leq
             | Greater | Geq | And | Or | Mxadd | Mxsub | Mxtimes | Mxscale
 
-type uop = Neg | Not | Transpose | Increment | Decrement
+type uop = Neg | Not | Transpose
 
 type typ = Int | Bool | Float | Void | String | Matrix of typ
 
@@ -56,8 +56,6 @@ let string_of_uop = function
     Neg -> "-"
   | Not -> "!"
   | Transpose -> "'"
-  | Increment -> "++"
-  | Decrement -> "--"
 
 let rec string_of_expr = function
     Literal(l) -> string_of_int l
