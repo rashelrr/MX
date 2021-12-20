@@ -48,6 +48,8 @@ rule token = parse
     | "!="                  { NEQ } 
     | ">="                  { GEQ }
     | "!"                   { NOT }
+    | "++"                  { INCR }
+    | "--"                  { DECR }
 
     | "||"                  { OR }
     | "&&"                  { AND }
