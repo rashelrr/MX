@@ -1,0 +1,9 @@
+int main() {
+    Matrix m;
+    Matrix matrix_transposed;
+    int x;
+
+    m = [[1,2,3],[50,60,70]];
+    x = 45;
+    matrix_transposed = x'; 
+}
