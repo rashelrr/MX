@@ -267,7 +267,7 @@ void display(Matrix *input) {
     for(int j = 0; j < cols; j++) {
       if (j == 0) {
         printf("[ %i,", get(input, i, j));
-      } else if (j == col - 1) {
+      } else if (j == cols - 1) {
         printf(" %i ]", get(input, i, j));
       } else {
         printf(" %i,", get(input, i, j));
