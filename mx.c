@@ -5,11 +5,9 @@
 
 int debug = 0;
 
-static void die(const char *message)
-{
+static void die(const char *message) {
     perror(message);
     exit(1);
-
 }
 
 typedef struct Matrix {
@@ -19,7 +17,7 @@ typedef struct Matrix {
   int buildPosition;
 } Matrix;
 
-Matrix *store(Matrix *m, int value){  
+Matrix *store(Matrix *m, int value) {  
   int position = m->buildPosition;
   int curr_row = position / m->num_cols;
   int curr_col = position % m->num_cols;
@@ -33,8 +31,7 @@ Matrix *initMatrix( int rows, int cols ) {
   int size = rows * cols;
   int *p = malloc(sizeof(int*)*size);
   
-  for (int i = 0; i <= size; i++)
-  {
+  for (int i = 0; i <= size; i++) {
     p[i] = 0;
   }
 
@@ -47,36 +44,36 @@ Matrix *initMatrix( int rows, int cols ) {
   return result;
 }
 
-int get(struct Matrix *m, int r, int c){
+int get(struct Matrix *m, int r, int c) {
   //get m[r][c]
   int kill = 0;
-  if (r > ((m->num_rows) - 1)){
+  if (r > ((m->num_rows) - 1)) {
     perror("row index out of range when setting matrix ");
     kill = 1;
   }
-  if (c > ((m->num_cols) - 1)){
+  if (c > ((m->num_cols) - 1)) {
     perror("col index out of range when setting matrix ");
     kill = 1;
   }
-  if(kill == 1){
+  if(kill == 1) {
     die("");
   }
   int idx = c + (r * (m->num_cols));
   return m->matrixAddr[idx];
 }
 
-void set(struct Matrix *m, int r, int c, double v){
+void set(struct Matrix *m, int r, int c, double v) {
   //set m[r][c] to v
   int kill = 0;
-  if (r > ((m->num_rows) - 1)){
+  if (r > ((m->num_rows) - 1)) {
     perror("row index out of range when setting matrix ");
     kill = 1;
   }
-  if (c > ((m->num_cols) - 1)){
+  if (c > ((m->num_cols) - 1)) {
     perror("col index out of range when setting matrix ");
     kill = 1;
   }
-  if(kill == 1){
+  if(kill == 1) {
     die("");
   }
   int idx = c + (r * (m->num_cols));
