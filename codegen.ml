@@ -204,14 +204,14 @@ let translate (globals, functions) =
                               let e1' = (expr builder e) in
                               let e2' = L.build_load (lookup s) s builder in
                               let
-                              e' = L.build_mul e1' e2' "tmp" builder in
+                              e' = L.build_sub e2' e1' "tmp" builder in
                               ignore(L.build_store e' (lookup s) builder); e'
 
       | STimesassign (s, e) -> 
                               let e1' = (expr builder e) in
                               let e2' = L.build_load (lookup s) s builder in
                               let
-                              e' = L.build_sub e1' e2' "tmp" builder in
+                              e' = L.build_mul e1' e2' "tmp" builder in
                               ignore(L.build_store e' (lookup s) builder); e'
       
       | SBinop ((A.Float,_ ) as e1, op, e2) ->
