@@ -1,0 +1,9 @@
+int main() {
+    Matrix m;
+    Matrix matrix_transposed;
+    String str;
+
+    m = [[1,2,3],[50,60,70]];
+    str = "matrix";
+    matrix_transposed = str'; 
+}

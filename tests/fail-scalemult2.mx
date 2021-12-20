@@ -1,0 +1,10 @@
+int main() {
+    float x;
+    Matrix m;
+    Matrix result;
+
+    x = 3.2;
+    m = [[4,5,3],[5,5,6]];
+
+    result = m **. x;  /* Fail: scalar multiplication between float and matrix */
+}

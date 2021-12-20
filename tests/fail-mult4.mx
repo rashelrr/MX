@@ -1,0 +1,10 @@
+int main() {
+    String num;
+    Matrix mat;
+    Matrix multi;
+
+    num = "34";
+    mat = [[1,2],[3,4],[4,5],[5,8]];
+
+    multi = mat *. num;
+}
