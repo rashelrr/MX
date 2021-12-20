@@ -15,16 +15,9 @@ static void die(const char *message)
 typedef struct Matrix {
   int num_rows;
   int num_cols;
-  int *matrixAddr; // accessed [row][col]
+  int *matrixAddr; 
   int buildPosition;
 } Matrix;
-// typedef struct matrix matrix;
-
-
-// Matrix *initMatrix(int a){
-//   printf("%i\n", a);
-//   printf("LMAOOOO \n");
-// };
 
 Matrix *store(Matrix *m, int value){  
   int position = m->buildPosition;
@@ -37,10 +30,6 @@ Matrix *store(Matrix *m, int value){
 }
 
 Matrix *initMatrix( int rows, int cols ) {
-
-  // printf("COLS + ROWS");
-  // printf("ROWS %d",rows);
-  // printf("COLS %d",cols);
   int size = rows * cols;
   int *p = malloc(sizeof(int*)*size);
   

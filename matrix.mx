@@ -13,20 +13,23 @@ int main(){
     Matrix j;
     Matrix k;
     Matrix l;
-    int cols;
+    int colsa;
+    int colsn;
     m = [[2,3,4],[6,4,5],[7,8,1],[9,7,8]];
     n = [[1,2,4],[3,4,5]];
     a = [[1,2,4],[3,4,5]];
     e = [[2,2],[2,2]];
     f = [[1,2,3,4],[4,5,2,3],[7,5,2,3]];
     m = m';
-    #b = a +. n;
+    b = a +. n;
+    #b = a +. e;
     c = a -. n;
     d = e *. n;
     g = identity(3);
     h = g**.4;
     i = transformation(e, 2);
-    cols = numCols(f);
+    colsa = numCols(a);
+    colsn = numCols(n);
     print_matrix(m);
     prints("==============================================");
     print_matrix(n);
@@ -45,7 +48,9 @@ int main(){
     prints("==============================================");
     print_matrix(i);
     prints("==============================================");
-    print(cols);
+    print(colsa);
+    prints("==============================================");
+    print(colsn);
     prints("==============================================");
     prints("Done!");
 }

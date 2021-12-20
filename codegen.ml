@@ -132,7 +132,7 @@ let translate (globals, functions) =
     let builder = L.builder_at_end context (L.entry_block the_function) in
 
     let int_format_str = L.build_global_stringptr "%d\n" "fmt" builder
-    and str_format_str = L.build_global_stringptr "%s\n" "fmt" builder
+    and str_format_str = L.build_global_stringptr "%s" "fmt" builder
     and float_format_str = L.build_global_stringptr "%g\n" "fmt" builder in
 
     (* Construct the function's "locals": formal arguments and locally
@@ -214,17 +214,7 @@ let translate (globals, functions) =
 	  | A.Leq     -> L.build_icmp L.Icmp.Sle e1' e2' "tmp" builder
 	  | A.Greater -> L.build_icmp L.Icmp.Sgt e1' e2' "tmp" builder
 	  | A.Geq     -> L.build_icmp L.Icmp.Sge e1' e2' "tmp" builder
-    | A.Mxadd   -> 
-                    let 
-                      c1 = L.build_call numCols_f [| e1'|] "numCols" builder 
-                    and 
-                      c2 = L.build_call numCols_f [| e2'|] "numCols" builder 
-                    in
-                    let mismatch = (c1 != c2) in
-                    let mismatch_check bool = if bool then raise (Failure "Matrix rows are not all the same length") in
-
-                    ignore(mismatch_check mismatch); L.build_call mxAdd_f [| e1'; e2' |] "mxAdd" builder
-
+    | A.Mxadd   -> L.build_call mxAdd_f [| e1'; e2' |] "mxAdd" builder
     | A.Mxsub   -> L.build_call mxSub_f [| e1'; e2' |] "mxSub" builder
     | A.Mxtimes -> L.build_call mxMult_f [| e1'; e2' |] "mxMult" builder
     | A.Mxscale -> L.build_call mxScale_f [| e1'; e2' |] "mxScale" builder
