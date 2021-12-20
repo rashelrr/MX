@@ -1,0 +1,9 @@
+int main() {
+    Matrix m;
+    Matrix n;
+
+    m = [[1,2],[3,4]];
+    n = [[12,17],[34,21]];
+
+    m.transformation(n);
+}
