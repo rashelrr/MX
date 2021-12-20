@@ -32,6 +32,7 @@ int main(){
     colsa = numCols(a);
     colsn = numCols(n);
     rows  = numRows(n);
+    rows += 4;
     print_matrix(m);
     prints("==============================================");
     print_matrix(n);
