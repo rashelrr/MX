@@ -113,6 +113,11 @@ let translate (globals, functions) =
       L.function_type i32_t [|matrix_t|] in
   let numCols_f = 
       L.declare_function "numCols" numCols_t the_module in
+
+  let numRows_t = 
+      L.function_type i32_t [|matrix_t|] in
+  let numRows_f = 
+      L.declare_function "numRows" numRows_t the_module in
       
 
   (* Define each function (arguments and return type) so we can 
@@ -261,6 +266,9 @@ let translate (globals, functions) =
 
       | SCall ("numCols", [e]) ->                                                  
       L.build_call numCols_f [| (expr builder e) |] "numCols" builder
+
+      | SCall ("numRows", [e]) ->                                                  
+      L.build_call numRows_f [| (expr builder e) |] "numRows" builder
 
       | SCall (f, args) ->
          let (fdef, fdecl) = StringMap.find f function_decls in

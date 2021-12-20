@@ -15,6 +15,7 @@ int main(){
     Matrix l;
     int colsa;
     int colsn;
+    int rows;
     m = [[2,3,4],[6,4,5],[7,8,1],[9,7,8]];
     n = [[1,2,4],[3,4,5]];
     a = [[1,2,4],[3,4,5]];
@@ -30,6 +31,7 @@ int main(){
     i = transformation(e, 2);
     colsa = numCols(a);
     colsn = numCols(n);
+    rows  = numRows(n);
     print_matrix(m);
     prints("==============================================");
     print_matrix(n);
@@ -51,6 +53,8 @@ int main(){
     print(colsa);
     prints("==============================================");
     print(colsn);
+    prints("==============================================");
+    print(rows);
     prints("==============================================");
     prints("Done!");
 }
