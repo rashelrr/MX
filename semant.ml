@@ -142,6 +142,18 @@ let check (globals, functions) =
           let err = "illegal assignment " ^ string_of_typ lt ^ " = " ^ 
             string_of_typ rt ^ " in " ^ string_of_expr ex
           in (check_assign lt rt err, SPlusassign(var, (rt, e')))
+      | Minusassign(var, e) as ex -> 
+          let lt = type_of_identifier var
+          and (rt, e') = expr e in
+          let err = "illegal assignment " ^ string_of_typ lt ^ " = " ^ 
+            string_of_typ rt ^ " in " ^ string_of_expr ex
+          in (check_assign lt rt err, SPlusassign(var, (rt, e')))
+      | Timesassign(var, e) as ex -> 
+          let lt = type_of_identifier var
+          and (rt, e') = expr e in
+          let err = "illegal assignment " ^ string_of_typ lt ^ " = " ^ 
+            string_of_typ rt ^ " in " ^ string_of_expr ex
+          in (check_assign lt rt err, SPlusassign(var, (rt, e')))
       | Unop(op, e) as ex -> 
           let (t, e') = expr e in
           let ty = match op with
