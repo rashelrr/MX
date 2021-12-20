@@ -191,6 +191,8 @@ let translate (globals, functions) =
                           e' = L.build_add e1' e2' "tmp" builder in
                           ignore(L.build_store e' (lookup s) builder); e' *)
 
+      (* Assignment Operators below *)
+      
       | SPlusassign (s, e) -> 
                               let e1' = (expr builder e) in
                               let e2' = L.build_load (lookup s) s builder in

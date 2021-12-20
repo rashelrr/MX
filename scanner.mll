@@ -34,7 +34,6 @@ rule token = parse
     | "+="                  { PLUSASSIGN }     
     | "-="                  { MINUSASSIGN } 
     | "*="                  { TIMESASSIGN }
-    | "/="                  { DIVIDEASSIGN }
 
     | "+."                  { MXPLUS }
     | "-."                  { MXMINUS }

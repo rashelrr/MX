@@ -14,6 +14,8 @@ type expr = Literal of int | Fliteral of string | BoolLit of bool
             | Binop of expr * op * expr | Unop of uop * expr
             | Assign of string * expr
             | Plusassign of string * expr
+            | Minusassign of string * expr
+            | Timesassign of string * expr
             | Call of string * expr list
             | Noexpr
 
@@ -68,6 +70,8 @@ let rec string_of_expr = function
   | Unop(o, e) -> string_of_uop o ^ string_of_expr e
   | Assign(v, e) -> v ^ " = " ^ string_of_expr e
   | Plusassign(v, e) -> v ^ " += " ^ string_of_expr e
+  | Minusassign(v, e) -> v ^ " -= " ^ string_of_expr e
+  | Timesassign(v, e) -> v ^ " *= " ^ string_of_expr e
   | Call(f, el) ->
       f ^ "(" ^ String.concat ", " (List.map string_of_expr el) ^ ")"
   | Noexpr -> ""

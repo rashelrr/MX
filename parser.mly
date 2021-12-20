@@ -1,7 +1,7 @@
 %{ open Ast %}
 
 %token LPAREN RPAREN LBRACE RBRACE LBRACKET RBRACKET SEMI COMMA TRANSPOSE
-%token PLUS MINUS TIMES DIVIDE ASSIGN EQ PLUSASSIGN MINUSASSIGN TIMESASSIGN DIVIDEASSIGN
+%token PLUS MINUS TIMES DIVIDE ASSIGN EQ PLUSASSIGN MINUSASSIGN TIMESASSIGN
 %token IF ELIF ELSE WHILE FOR NOT NOELSE
 %token INT BOOL FLOAT STRING CONTINUE BREAK RETURN MATRIX VOID NULL
 %token NEQ LT GT LEQ GEQ AND OR
@@ -104,6 +104,8 @@ expr:
     | NOT expr                   { Unop(Not, $2) }        
     | ID ASSIGN expr             { Assign($1, $3) }
     | ID PLUSASSIGN expr         { Plusassign($1, $3) }
+    | ID MINUSASSIGN expr        { Minusassign($1, $3) }
+    | ID TIMESASSIGN expr        { Timesassign($1, $3) }
     | ID LPAREN args_opt RPAREN  { Call($1, $3) }
     | LPAREN expr RPAREN         { $2 }
 
