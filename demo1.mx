@@ -1,0 +1,138 @@
+int main(){
+
+    int cols;
+    int rows; #Variable declaration
+
+    Matrix m;
+    Matrix n; 
+    Matrix u; 
+    Matrix i; 
+    Matrix t1;
+    Matrix t2;
+    Matrix t3;
+    Matrix t4;
+    Matrix t5;
+    Matrix t6;
+    Matrix t7; #Matrix Declaration
+
+    m = [[2,3,4],[6,4,5],[7,8,1],[9,7,8]]; #Matrix Initialization
+    n = [[1,0,9],[5,7,9],[4,6,7],[2,5,9]];
+    u = [[1,2,4,5],[3,4,5,7]];
+
+    /* Print Matrix */
+    prints("");
+    prints("Printing Matrix m :");
+    print_matrix(m);
+
+    prints("");
+    prints("Printing Matrix n :");
+    print_matrix(n);
+
+    prints("");
+    prints("Printing Matrix u :");
+    print_matrix(u);
+
+    /* Matrix Functions */
+
+    /* Transpose */
+    prints("");
+    prints("Printing Transpose of Matrix m :");
+    print_matrix( m' );
+
+    /* Matrix Addition */
+    prints("");
+    prints("Printing Sum of Matrix m + Matrix n:");
+    print_matrix( m +. n );
+
+    /* Matrix Subtraction */
+    prints("");
+    prints("Printing Difference of Matrix m - Matrix n:");
+    print_matrix( m -. n );
+
+    /* Matrix Multiplication */
+    prints("");
+    prints("Printing Product of Matrix u * Matrix m:");
+    print_matrix( u *. m );
+
+    /* Identity Matrix Function */
+    prints("");
+    i = identity(3);
+    prints("Printing 3x3 identity Matrix i:");
+    print_matrix( i );
+
+    /* Scalar Multiplication */
+    prints("");
+    prints("Printing Result of 4 * Matrix i:");
+    print_matrix( i **. 4 );
+
+    /* Transform Function */
+
+    /* Reflection in line y = x */
+    prints("");
+    t1 = transformation(u, 1);
+    prints("Printing Reflection of Matrix u in line y = x:");
+    print_matrix(t1);
+
+    /* Reflection in line y = -x */
+    prints("");
+    t2 = transformation(u, 2);
+    prints("Printing Reflection of Matrix u in line y = -x:");
+    print_matrix(t2);
+
+    /* Reflection in x-axis */
+    prints("");
+    t3 = transformation(u, 3);
+    prints("Printing Reflection of Matrix u in x-axis:");
+    print_matrix(t3);
+
+    /* Reflection in y-axis */
+    prints("");
+    t4 = transformation(u, 4);
+    prints("Printing Reflection of Matrix u in y-axis:");
+    print_matrix(t4);
+
+    /* Rotation 90° clockwise */
+    prints("");
+    t5 = transformation(u, 5);
+    prints("Printing Rotation 90° clockwise of Matrix u:");
+    print_matrix(t5);
+
+    /* Rotation 180° */
+    prints("");
+    t6 = transformation(u, 6);
+    prints("Printing Rotation 180° of Matrix u:");
+    print_matrix(t6);
+
+    /* Rotation 90° anticlockwise */
+    prints("");
+    t7 = transformation(u, 7);
+    prints("Printing Rotation 90° anticlockwise of Matrix u:");
+    print_matrix(t7);
+
+    /* Get number of columns */
+
+    prints("");
+    cols = numCols(u);
+    prints("Printing number of columns in Matrix u:");
+    prints("");
+    print(cols);
+
+    /* Get number of rows */
+
+    prints("");
+    rows = numRows(u);
+    prints("Printing number of rows in Matrix u:");
+    prints("");
+    print(rows);
+
+    /* Assignment Operators */
+
+    prints("");
+    rows += rows;
+    prints("Printing rows += rows");
+    prints("");
+    print(rows);
+    prints("");
+    prints("Demo Over!");
+    prints("");
+}
