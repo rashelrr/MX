@@ -1,0 +1,9 @@
+int main() {
+    String s;
+    int i;
+    bool b;
+    int j;
+
+    j = b - i;
+    print(j);
+}

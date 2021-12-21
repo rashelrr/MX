@@ -1,0 +1,6 @@
+int main() {
+    bool bb;
+
+    bb = false;
+    print(bb);
+}

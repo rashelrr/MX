@@ -1,0 +1,9 @@
+int main() {
+    String s;
+    int j;
+
+    j = 10;
+    s = "hello world!";
+    print(j);
+    prints(j);
+}

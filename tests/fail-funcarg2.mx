@@ -1,0 +1,16 @@
+bool foo(int i, float f, bool tf) {
+    if (i > 0 && f > 3.5) {
+        return tf;
+    } else {
+        return false;
+    }    
+}
+
+int main() {
+    bool result;
+    bool b;
+
+    b = true;
+    result = foo(5, b, 10.0);
+    printb(result);
+}

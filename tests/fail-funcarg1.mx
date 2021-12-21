@@ -1,0 +1,17 @@
+int foo(int x, int y, int z) {
+    int sum;
+    
+    sum = x + y + z;
+    return sum;
+}
+
+int main() {
+    int secret;
+    secret = 100;
+
+    if (secret > 100) {
+        print(secret);
+    } else {
+        print(foo(3, 5));
+    }
+}
