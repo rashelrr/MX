@@ -1,0 +1,97 @@
+int main(){
+    int a;
+    int b;
+    float c;
+    float d;
+    a = 5;
+    b = 10;
+    c = 9.81;
+    d = 4.9;
+    
+    prints("==============================================");
+    prints("a is an integer with the value of: ");
+    print(a);
+    prints("==============================================");
+    prints("b is an integer with the value of: ");
+    print(b);
+    prints("==============================================");
+    prints("c is a float with the value of: ");
+    printf(c);
+    prints("==============================================");
+    prints("d is an float with the value of: ");
+    printf(d);
+
+    if(a <= b) {
+        prints("==============================================");
+        prints("a is less than or equal to b.");
+        prints("==============================================");
+        
+    }
+
+    if(b > a) {
+        prints("b is greater than a.");
+        prints("==============================================");
+    }
+
+    if(c > d) {
+        prints("c is greater than d.");
+        prints("==============================================");
+    }
+
+    if(c >= d) {
+        prints("c is greater than  or equal to d.");
+        prints("==============================================");
+    }
+
+    if(3 == 3) {
+        prints("3 does equal to 3");
+        prints("==============================================");
+    }
+
+    if(true && true) {
+        prints("true");
+        prints("==============================================");
+    }
+
+    if(true || false) {
+        prints("true || false is true ");
+        prints("==============================================");
+    } 
+
+    if(true) {
+        prints("true is true");
+        prints("==============================================");
+    }
+
+    if( 6 != 6 ) {
+       prints("This was a mistake, we should fix tihs!"); 
+    } else {
+        prints("This is the right output!");
+        prints("==============================================");
+    }
+
+    if(false) {
+        prints("Huh? What happened?");
+    } else {
+        prints("if(false) took me to the else, which is here!");
+        prints("==============================================");
+    }
+
+    if( (true && true) && (6>5)) {
+        prints("(true && true) && (6>5) is true");
+        prints("==============================================");
+    }
+    
+
+    if(false) {
+        prints("(true && true) && (6>5) is true");
+        prints("==============================================");
+    } else {
+        if( (true || false) || (false && false)) {
+            prints("if(false) {} else {if( (true || false) || (false && false))}");
+            prints("==============================================");
+        }
+    }
+    
+
+}

@@ -1,0 +1,39 @@
+bool foo(bool b1, bool b2) {
+    return b1 && b2;
+}
+
+float multi(int a, int b, float f) {
+    float m;
+    m = a * b * f;
+    return m;
+}
+
+bool logic(int a, int b, float f) {
+    float x;
+
+    x = multi(a, b, f);
+
+    if (x < 0.0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+int main() {
+    bool b;
+    bool bb;
+    bool result;
+
+    b = true;
+    bb = false;
+    result = logic(1,2,-3.0);
+
+    printb(foo(b, bb));
+
+    if (result == true) {
+        printb(result);
+    } else {
+        prints("oh no!");
+    }    
+}

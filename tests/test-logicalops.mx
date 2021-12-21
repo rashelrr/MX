@@ -1,0 +1,21 @@
+int main()
+{
+    printb(true && true);
+    printb(false && false);
+    printb(true && false);
+    printb(false && true);
+
+    prints(">>>>>>>>>>");
+    printb(true || true);
+    printb(false || false);
+    printb(true || false);
+    printb(false || true);
+
+    prints(">>>>>>>>>>");
+    printb(!true);
+    printb(!false);
+
+    prints(">>>>>>>>>>");
+    printb(true);
+    printb(false);
+}

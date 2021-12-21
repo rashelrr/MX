@@ -1,0 +1,28 @@
+int main() {
+    int a;
+    int b;
+    int c;
+    a = 0;
+    b = 3;
+    c = 5;
+
+    prints("==============================================");
+    prints("while( a < 10)");
+    while(a < 10) {
+        if( a == 5) {
+            prints("a is equal to 5");
+        } else {
+            print(a);
+        }
+        a = a + 1;
+    }
+
+    prints("==============================================");
+    prints("c = 5 and b = 3");
+    prints("while( c > b)");
+    while( c > b) {
+        print(c);
+        c = c - 1;
+    }
+
+}

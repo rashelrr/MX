@@ -1,0 +1,16 @@
+int main() {
+    int i;
+    int j;
+    int z;
+    String s;
+    bool b;
+    float f;
+    Matrix m;
+    
+    i = 3;
+    j = z = 3;
+    s = "this is a string";
+    b = true;
+    f = 3.5794;
+    m = [[1,0],[0,1]];
+}

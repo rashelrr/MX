@@ -1,0 +1,32 @@
+int main()
+{
+    printb(10 > 0);
+    printb(10 > -10);
+    printb(10 > (3 + -4));
+    printb(-10 > -20);
+    printb(-10 > -10);
+
+    prints(">>>>>>");
+
+    printb(0 < 10);
+    printb(-10 < 10);
+    printb((-3 + 4) < 10);
+    printb(-20 < -10);
+    printb(-10 < -10);
+
+    prints(">>>>>>");
+
+    printb(5 <= 10);
+    printb(5 <= 5);
+    printb(-1 >= -1);
+    printb(0 >= 0);
+    printb(12 >= -3);
+
+    prints(">>>>>>");
+
+    printb("h" == "h");
+    printb(23 == 24);
+    printb(true == false);
+    printb(false != false);
+    printb("he" != "He");
+}
