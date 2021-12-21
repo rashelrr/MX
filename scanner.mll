@@ -18,13 +18,10 @@ rule token = parse
     | ')'                   { RPAREN } 
 
     | "if"                  { IF } 
-    | "elif"                { ELIF }
     | "else"                { ELSE } 
 
     | "while"               { WHILE } 
     | "for"                 { FOR } 
-    | "continue"            { CONTINUE }
-    | "break"               { BREAK }
 
     | '='                   { ASSIGN }     
     | '+'                   { PLUS } 

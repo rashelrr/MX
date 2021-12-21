@@ -170,17 +170,16 @@ let translate (globals, functions) =
 
     (* Construct code for an expression; return its value *)
     let rec expr builder ((_, e) : sexpr) = match e with
-	SLiteral i  -> L.const_int i32_t i
+	      SLiteral i                    -> L.const_int i32_t i
       | SBoolLit b                    -> L.const_int i1_t (if b then 1 else 0)
       | SStringlit l                  -> L.build_global_stringptr l "tmp" builder
       | SFliteral l                   -> L.const_float_of_string float_t l
       | SNoexpr                       -> L.const_int i32_t 0
       | SId s                         -> L.build_load (lookup s) s builder
-      | SMx (l, rows, cols)       -> 
-      
-      let m = L.build_call init_matrix_f [| L.const_int i32_t rows; L.const_int i32_t cols |] "init_matrix" builder in 
-      let flat_list = List.flatten l in 
-      ignore( List.map (fun v -> L.build_call store_matrix_f [| m ; L.const_int i32_t v |] "store_matrix" builder) flat_list ); m
+      | SMx (l, rows, cols)           -> 
+                                        let m = L.build_call init_matrix_f [| L.const_int i32_t rows; L.const_int i32_t cols |] "init_matrix" builder in 
+                                        let flat_list = List.flatten l in 
+                                        ignore( List.map (fun v -> L.build_call store_matrix_f [| m ; L.const_int i32_t v |] "store_matrix" builder) flat_list ); m
 
       | SAssign (s, e) -> let e' = expr builder e in
                           ignore(L.build_store e' (lookup s) builder); e'
@@ -214,7 +213,26 @@ let translate (globals, functions) =
                               e' = L.build_mul e1' e2' "tmp" builder in
                               ignore(L.build_store e' (lookup s) builder); e'
       
-      | SBinop ((A.Float,_ ) as e1, op, e2) ->
+    | SBinop (((A.Float,_ ) as e1), op, ((A.Int,_) as e2)) ->
+	  let e1' = expr builder e1
+	  and e2' = expr builder e2 in
+	  (match op with 
+	    A.Add     -> L.build_fadd
+	  | A.Sub     -> L.build_fsub
+	  | A.Mult    -> L.build_fmul
+	  | A.Div     -> L.build_fdiv 
+	  | A.Equal   -> L.build_fcmp L.Fcmp.Oeq
+	  | A.Neq     -> L.build_fcmp L.Fcmp.One
+	  | A.Less    -> L.build_fcmp L.Fcmp.Olt
+	  | A.Leq     -> L.build_fcmp L.Fcmp.Ole
+	  | A.Greater -> L.build_fcmp L.Fcmp.Ogt
+	  | A.Geq     -> L.build_fcmp L.Fcmp.Oge
+	  | A.And | A.Or | A.Mxadd | A.Mxsub | A.Mxtimes | A.Mxscale ->
+	      raise (Failure "internal error: semant should have rejected and/or on float")
+	  ) e1' (L.build_uitofp e2' float_t "tmp" builder) "tmp" builder
+
+
+    | SBinop (((A.Float,_ ) as e1), op, ((A.Float,_) as e2)) ->
 	  let e1' = expr builder e1
 	  and e2' = expr builder e2 in
 	  (match op with 
