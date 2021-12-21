@@ -1,0 +1,9 @@
+*.bc
+*.o
+*.exe
+*.ll
+*.s
+_build/
+*.exe
+*.sh
+*.native

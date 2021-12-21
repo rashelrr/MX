@@ -1,0 +1,18 @@
+int main(){
+    Matrix m;
+    Matrix n;
+    Matrix f;
+    m = identity(2);
+    n = identity(3);
+    f = identity(6);
+    prints("==============================================");
+    prints(" 2x2 Identity Matrix ");
+    print_matrix(m);
+    prints("==============================================");
+    prints(" 3x3 Identity Matrix ");
+    print_matrix(n);
+    prints("==============================================");
+    prints(" 6x6 Identity Matrix ");
+    print_matrix(f);
+    prints("==============================================");
+}

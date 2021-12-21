@@ -1,0 +1,8 @@
+int main() {
+    String s;
+    int i;
+
+    s = "hello";
+    i = 1;
+    i += s;
+}

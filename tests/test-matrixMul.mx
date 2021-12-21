@@ -1,0 +1,17 @@
+int main(){
+    Matrix d;
+    Matrix n;
+    Matrix a;
+    n = [[1,2],[3,4]];
+    a = [[5,6],[7,8]];
+    d = a *. n;
+    prints("==============================================");
+    prints("Matrix a = ");
+    print_matrix(a);
+    prints("==============================================");
+    prints("Matrix n = ");
+    print_matrix(n);
+    prints("==============================================");
+    prints("a *. n = ");
+    print_matrix(d);
+}

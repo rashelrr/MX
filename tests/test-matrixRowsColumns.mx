@@ -1,0 +1,21 @@
+int main(){
+    Matrix m;
+    Matrix n;
+    int colsm;
+    int rows;
+    m = [[2,3,4],[6,4,5],[7,8,1],[9,7,8]];
+    n = [[1,2,4],[3,4,5]];
+    colsm = numCols(m);
+    rows  = numRows(n);
+    prints("==============================================");
+    print_matrix(m);
+    prints("==============================================");
+    prints("Number of columns for m are: ");
+    print(colsm);
+    prints("==============================================");
+    print_matrix(n);
+    prints("==============================================");
+    prints("Number of rows for n are: ");
+    print(rows);
+    prints("==============================================");
+}
