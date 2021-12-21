@@ -57,6 +57,7 @@ let check (globals, functions) =
     ("transformation", [Matrix(Int); Int], Matrix(Int));
     ("identity", [Int], Matrix(Int));
     ("twoFunc", [Int; Int], Void);
+    ("pi", [], Float);
     ("print_matrix", [Matrix(Int)], Void)
      ]
   in
