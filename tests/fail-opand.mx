@@ -1,0 +1,12 @@
+int main() {
+    String s;
+    int i;
+    bool b;
+    bool bb;
+    int j;
+
+    i = 3;
+    j = 4;
+
+    printb(i > 0 && j);
+}

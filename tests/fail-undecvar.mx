@@ -1,0 +1,13 @@
+int main() {
+    String s;
+    bool b;
+    int j;
+
+    s = "plt is a great class for all coders!";
+    b = true;
+    
+    if (i > 0) {
+        printb(b);
+    }
+
+}

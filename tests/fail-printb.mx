@@ -1,0 +1,9 @@
+int main() {
+    bool bb;
+    String s;
+
+    bb = true;
+    s = "hello world!";
+    printb(bb);
+    printb(s);
+}
