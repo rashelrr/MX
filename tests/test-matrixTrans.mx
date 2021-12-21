@@ -1,0 +1,23 @@
+int main(){
+    Matrix n;
+    Matrix a;
+    Matrix q;
+    Matrix r;
+    n = [[1,2],[4,5]];
+    a = [[9,8,7], [6,5,4]];
+    q = n';
+    r = a';
+    prints("==============================================");
+    prints("Matrix a = ");
+    print_matrix(a);
+    prints("==============================================");
+    prints("Matrix a' = ");
+    print_matrix(r);
+    prints("==============================================");
+    prints("Matrix n = ");
+    print_matrix(n);
+    prints("==============================================");
+    prints("Matrix n' = ");
+    print_matrix(q);
+    prints("==============================================");
+}
