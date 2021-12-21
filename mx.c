@@ -90,6 +90,11 @@ int numRows(Matrix *input) {
   return rows;
 }
 
+double pi() {
+  double pi = 2*acos(0.0);
+  return pi;
+}
+
 Matrix *mxAdd(Matrix *lhs, Matrix *rhs) {
   //check dimensions
   if (lhs->num_rows != rhs->num_rows || lhs->num_cols != rhs->num_cols) {
