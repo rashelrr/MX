@@ -1,0 +1,33 @@
+int main(){
+    Matrix d;
+    Matrix n;
+    Matrix q;
+    Matrix s;
+    Matrix o;
+    Matrix p;
+    d = [[1,2,3],[4,5,6], [7,8,9]];
+    n = d**.2;
+    q = [[1,2,3],[4,5,6]];
+    s = q **.0;
+    o = identity(4);
+    p = o **.-9;
+    prints("==============================================");
+    prints("Matrix d = ");
+    print_matrix(d);
+    prints("==============================================");
+    prints("Matrix d**.2 = ");
+    print_matrix(n);
+    prints("==============================================");
+    prints("Matrix q = ");
+    print_matrix(q);
+    prints("==============================================");
+    prints("Matrix q**.0 = ");
+    print_matrix(s);
+    prints("==============================================");
+    prints("Matrix o = ");
+    print_matrix(o);
+    prints("==============================================");
+    prints("Matrix o**.-9 = ");
+    print_matrix(p);
+    prints("==============================================");
+}
