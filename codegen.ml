@@ -343,8 +343,8 @@ let translate (globals, functions) =
       | SCall ("numRows", [e]) ->                                                  
       L.build_call numRows_f [| (expr builder e) |] "numRows" builder
 
-      | SCall ("pi", [e]) ->                                                  
-      L.build_call pi_f [| (expr builder e) |] "pi" builder
+      | SCall ("pi", _) ->                                                  
+      L.build_call pi_f [||] "pi" builder
 
       | SCall (f, args) ->
          let (fdef, fdecl) = StringMap.find f function_decls in

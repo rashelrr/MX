@@ -90,7 +90,7 @@ int numRows(Matrix *input) {
   return rows;
 }
 
-double pi() {
+double pi(int a) {
   double pi = 2*acos(0.0);
   return pi;
 }
