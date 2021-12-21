@@ -212,7 +212,9 @@ let translate (globals, functions) =
                               let
                               e' = L.build_mul e1' e2' "tmp" builder in
                               ignore(L.build_store e' (lookup s) builder); e'
-      
+    
+    (* All cases of Float + Int and Cast the int in question to a float *)
+
     | SBinop (((A.Float,_ ) as e1), op, ((A.Int,_) as e2)) ->
 	  let e1' = expr builder e1
 	  and e2' = expr builder e2 in
@@ -230,6 +232,24 @@ let translate (globals, functions) =
 	  | A.And | A.Or | A.Mxadd | A.Mxsub | A.Mxtimes | A.Mxscale ->
 	      raise (Failure "internal error: semant should have rejected and/or on float")
 	  ) e1' (L.build_uitofp e2' float_t "tmp" builder) "tmp" builder
+
+    | SBinop (((A.Int,_ ) as e1), op, ((A.Float,_) as e2)) ->
+	  let e1' = expr builder e1
+	  and e2' = expr builder e2 in
+	  (match op with 
+	    A.Add     -> L.build_fadd
+	  | A.Sub     -> L.build_fsub
+	  | A.Mult    -> L.build_fmul
+	  | A.Div     -> L.build_fdiv 
+	  | A.Equal   -> L.build_fcmp L.Fcmp.Oeq
+	  | A.Neq     -> L.build_fcmp L.Fcmp.One
+	  | A.Less    -> L.build_fcmp L.Fcmp.Olt
+	  | A.Leq     -> L.build_fcmp L.Fcmp.Ole
+	  | A.Greater -> L.build_fcmp L.Fcmp.Ogt
+	  | A.Geq     -> L.build_fcmp L.Fcmp.Oge
+	  | A.And | A.Or | A.Mxadd | A.Mxsub | A.Mxtimes | A.Mxscale ->
+	      raise (Failure "internal error: semant should have rejected and/or on float")
+	  ) (L.build_uitofp e1' float_t "tmp" builder) e2' "tmp" builder
 
 
     | SBinop (((A.Float,_ ) as e1), op, ((A.Float,_) as e2)) ->
