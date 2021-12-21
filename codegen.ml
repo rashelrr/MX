@@ -118,6 +118,11 @@ let translate (globals, functions) =
       L.function_type i32_t [|matrix_t|] in
   let numRows_f = 
       L.declare_function "numRows" numRows_t the_module in
+
+  let pi_t = 
+      L.function_type float_t [||] in
+  let pi_f = 
+      L.declare_function "pi" pi_t the_module in
       
 
   (* Define each function (arguments and return type) so we can 
@@ -213,7 +218,7 @@ let translate (globals, functions) =
                               e' = L.build_mul e1' e2' "tmp" builder in
                               ignore(L.build_store e' (lookup s) builder); e'
     
-    (* All cases of Float + Int and Cast the int in question to a float *)
+    (* All cases of Float op Int where Flaot is lhs and Int is rhs and Cast the int in question to a float *)
 
     | SBinop (((A.Float,_ ) as e1), op, ((A.Int,_) as e2)) ->
 	  let e1' = expr builder e1
@@ -233,6 +238,8 @@ let translate (globals, functions) =
 	      raise (Failure "internal error: semant should have rejected and/or on float")
 	  ) e1' (L.build_uitofp e2' float_t "tmp" builder) "tmp" builder
 
+  (* Same as above but for instance of Int op Float where Int is lhs and Float is rhs *)
+
     | SBinop (((A.Int,_ ) as e1), op, ((A.Float,_) as e2)) ->
 	  let e1' = expr builder e1
 	  and e2' = expr builder e2 in
@@ -250,7 +257,6 @@ let translate (globals, functions) =
 	  | A.And | A.Or | A.Mxadd | A.Mxsub | A.Mxtimes | A.Mxscale ->
 	      raise (Failure "internal error: semant should have rejected and/or on float")
 	  ) (L.build_uitofp e1' float_t "tmp" builder) e2' "tmp" builder
-
 
     | SBinop (((A.Float,_ ) as e1), op, ((A.Float,_) as e2)) ->
 	  let e1' = expr builder e1
@@ -336,6 +342,9 @@ let translate (globals, functions) =
 
       | SCall ("numRows", [e]) ->                                                  
       L.build_call numRows_f [| (expr builder e) |] "numRows" builder
+
+      | SCall ("pi", [e]) ->                                                  
+      L.build_call pi_f [| (expr builder e) |] "pi" builder
 
       | SCall (f, args) ->
          let (fdef, fdecl) = StringMap.find f function_decls in
