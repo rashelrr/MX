@@ -173,6 +173,7 @@ let check (globals, functions) =
           let ty = match op with
             Add | Sub | Mult | Div                   when same && t1 = Int   -> Int
           | Add | Sub | Mult | Div                   when same && t1 = Float -> Float
+          | Add | Sub | Mult | Div                   when (t1 = Float && t2 = Int) || (t1 = Int && t2 = Float)  -> Float
           | Mxadd | Mxsub | Mxtimes                  when same && t1 = Matrix(Int) -> Matrix(Int)
           | Mxscale                                  when t1 = Matrix(Int) && t2 = Int -> (Matrix(Int))
           | Equal | Neq            when same               -> Bool
