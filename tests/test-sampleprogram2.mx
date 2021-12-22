@@ -1,0 +1,12 @@
+int main() {
+    Matrix m1;
+    Matrix m2;
+
+    m1 = [[1,2],[3,4]];
+    m2 = [[2,4],[6,8]];
+
+    print_matrix(m1 +. m2);
+    print_matrix(m1 -. m2);
+    print_matrix(m1 *. m2);
+    print_matrix(m2 **. 3);
+}

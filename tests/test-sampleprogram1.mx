@@ -1,0 +1,10 @@
+int main() {
+    Matrix m;
+    Matrix n;
+
+    m = [[2,4],[6,8],[10,12]];
+    n = m';
+    print_matrix(m);
+    print_matrix(n);
+    return 0;
+}

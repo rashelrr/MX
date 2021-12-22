@@ -267,7 +267,6 @@ Matrix *transformation(Matrix *input, int num) {
 void display(Matrix *input) {
   int rows = input->num_rows;
   int cols = input->num_cols;
-  printf("\n");
   for(int i = 0; i < rows; i++) {
     for(int j = 0; j < cols; j++) {
       if (j == 0) {
@@ -280,6 +279,7 @@ void display(Matrix *input) {
     }
     printf("\n");
   }
+  printf("\n");
 }
 
 void twoFunc(int a, int b){
