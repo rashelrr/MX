@@ -11,10 +11,10 @@ int main(){
     prints("Matrix Transformation About y = -x");
     print_matrix(transformation(n,2));
     prints("==============================================");
-    prints("Matrix Transformation About y-axis");
+    prints("Matrix Transformation About x-axis");
     print_matrix(transformation(n,3));
     prints("==============================================");
-    prints("Matrix Transformation About x-axis");
+    prints("Matrix Transformation About y-axis");
     print_matrix(transformation(n,4));
     prints("==============================================");
 }

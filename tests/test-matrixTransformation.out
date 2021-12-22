@@ -14,12 +14,12 @@ Matrix Transformation About y = -x
 [ -3, -4 ]
 [ -1, -2 ]
 ==============================================
-Matrix Transformation About y-axis
+Matrix Transformation About x-axis
 
 [ 1, 2 ]
 [ -3, -4 ]
 ==============================================
-Matrix Transformation About x-axis
+Matrix Transformation About y-axis
 
 [ -1, -2 ]
 [ 3, 4 ]
