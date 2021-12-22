@@ -1,0 +1,14 @@
+int sum(int x) {
+    return x + 1;
+}
+
+int main() {
+    int a;
+    int b;
+
+    a = 45 + 3;
+    a += 5;
+
+    print(a);
+    print(a * 2);
+}

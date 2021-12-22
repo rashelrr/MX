@@ -1,0 +1,11 @@
+int main() {
+    int x;
+    int j;
+    String s;
+
+    x = 0;
+    j = 5;
+    x += j;
+    j = x + 3;
+    s = "notebook";
+}
