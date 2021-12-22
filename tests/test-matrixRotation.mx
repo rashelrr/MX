@@ -1,0 +1,17 @@
+int main(){
+    Matrix n;
+    n = [[1,2],[3,4]];
+    prints("==============================================");
+    prints("Matrix n:");
+    print_matrix(n);
+    prints("==============================================");
+    prints("Matrix 90 Degrees Clockwise");
+    print_matrix(transformation(n,5));
+    prints("==============================================");
+    prints("Matrix 180 Degrees");
+    print_matrix(transformation(n,6));
+    prints("==============================================");
+    prints("Matrix 90 Degrees Anticlockwise:");
+    print_matrix(transformation(n,7));
+    prints("==============================================");
+}
