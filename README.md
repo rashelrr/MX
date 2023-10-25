@@ -1,4 +1,8 @@
+# About
+
 The MX compiler
+
+*MX is a programming language specifically designed to handle mathematical matrices. MX was built using OCAML and LLVM*.
 
 Coded in OCaml, this incorporates C-style syntax in addition to built in matrix operations (int, bool, string, and matrix types, arithmetic, if-else, for, and while statements) and compiles it into LLVM IR.
 
@@ -10,10 +14,10 @@ and opam, then use opam to install llvm.
 The version of the OCaml llvm library must match the version of the LLVM
 system installed on your system.
 
+# Getting Started
 The basic MX compiler compiles gcd.mx.  run.sh runs the MX
 executable of our GCD test program (.mx file) to produce a .ll file, invokes "llc" (the LLVM compiler) to produce a .s (assembly) file, then invokes "cc" (the stock C compiler) to assemlbe the .s file, and generate an executable.  Before running run.sh, be sure to change the file permissions.
 
-----------
 If you get errors about llvm.analysis not being found, it's probably
 because opam enviroment information is missing.  Either run
 
@@ -23,8 +27,7 @@ or run ocamlbuild like this:
 
 opam config exec -- ocamlbuild <args>
 
-------------------------------
-Installation under Ubuntu 20.04
+## Installation under Ubuntu 20.04
 
 Use LLVM 10. Install the matching version of the OCaml LLVM bindings:
 
@@ -39,8 +42,7 @@ chmod 755 run.sh
 
 ./run.sh
 
-------------------------------
-Installation under Ubuntu 18.04
+## Installation under Ubuntu 18.04
 
 Use LLVM 9. Install the matching version of the OCaml LLVM bindings:
 
@@ -56,8 +58,7 @@ chmod 755 run.sh
 
 ./run.sh
 
-------------------------------
-Installation under Ubuntu 16.04
+## Installation under Ubuntu 16.04
 
 LLVM 3.8 is the default under 16.04. Install the matching version of
 the OCaml LLVM bindings:
@@ -73,8 +74,7 @@ chmod 755 run.sh
 
 ./run.sh
 
-------------------------------
-Installation under OS X
+## Installation under OS X
 
 1. Install Homebrew:
 
@@ -200,8 +200,7 @@ Installation under OS X
 
    As before, you may also modify the path to lli in run.sh
 
-------------------------------
-To run and test:
+## To run and test:
 
 $ make
 
